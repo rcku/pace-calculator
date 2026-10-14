@@ -55,16 +55,19 @@ test("portable HTML works without local scripts or stylesheets", async () => {
         assert.equal(window.document.querySelector("#race-results"), null);
         assert.equal(
             window.document.querySelectorAll("#pace-conversions tr").length,
-            30,
+            51,
         );
         const rows = Array.from(
             window.document.querySelectorAll("#pace-conversions tr"),
         );
         for (const pace of [
+            "2:35",
             "2:40",
+            "3:05",
             "3:10",
             "4:20",
             "5:50",
+            "5:55",
             "6:00",
             "6:30",
             "10:00",
