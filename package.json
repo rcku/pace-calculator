@@ -13,21 +13,25 @@
     "node": ">=24"
   },
   "scripts": {
-    "dev": "node scripts/serve.mjs",
-    "preview": "node scripts/serve.mjs --dist",
-    "build": "node scripts/build.mjs",
+    "dev": "vite",
+    "preview": "vite preview",
+    "build": "vite build && cpy LICENSE dist",
     "compile": "npm run build",
     "test": "node --test tests/calculations.test.js tests/app.test.js",
     "test:build": "node --test tests/build.test.js",
-    "check": "npm run format:check && npm test && npm run build && npm run test:build",
-    "format": "prettier --write src scripts tests package.json README.md CONTRIBUTING.md .github/workflows",
-    "format:check": "prettier --check src scripts tests package.json README.md CONTRIBUTING.md .github/workflows",
-    "export": "npm run build && node scripts/export.mjs"
+    "check": "npm run format:check && npm test && npm run build && npm run test:build && npm run export && npm run test:export",
+    "format": "prettier --write src tests vite.config.js package.json README.md CONTRIBUTING.md .github/workflows",
+    "format:check": "prettier --check src tests vite.config.js package.json README.md CONTRIBUTING.md .github/workflows",
+    "export": "vite build --mode portable && cpy portable/index.html ../outputs --rename=running-pace-calculator.html",
+    "test:export": "node --test tests/export.test.js"
   },
   "devDependencies": {
-    "esbuild": "0.28.2",
+    "cpy-cli": "7.0.0",
     "happy-dom": "21.0.1",
-    "html-minifier-terser": "7.2.0",
-    "prettier": "3.6.2"
+    "prettier": "3.6.2",
+    "vite": "8.3.4",
+    "vite-plugin-minify": "3.0.0",
+    "vite-plugin-singlefile": "2.3.3",
+    "vite-plugin-compression2": "2.5.3"
   }
 }

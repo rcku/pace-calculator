@@ -1,11 +1,15 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { gunzipSync, brotliDecompressSync } from "node:zlib";
 import { Window } from "happy-dom";
 
 test("compressed assets reproduce the built files exactly", async () => {
-  for (const name of ["index.html", "app.min.js", "style.min.css"]) {
+  const files = (
+    await readdir(new URL("../dist/", import.meta.url), { recursive: true })
+  ).filter((name) => /\.(html|js|css)$/.test(name));
+  assert.equal(files.length, 3);
+  for (const name of files) {
     const url = new URL(`../dist/${name}`, import.meta.url),
       bytes = await readFile(url);
     assert.deepEqual(
@@ -23,9 +27,9 @@ test("production HTML and bundle initialize without source imports", async () =>
     new URL("../dist/index.html", import.meta.url),
     "utf8",
   );
-  assert.match(html, /style.min.css/);
-  assert.match(html, /app.min.js/);
-  assert.doesNotMatch(html, /type="module"/);
+  assert.match(html, /assets\/[^" ]+\.css/);
+  assert.match(html, /assets\/[^" ]+\.js/);
+
   const window = new Window({
     settings: {
       disableCSSFileLoading: true,
@@ -35,7 +39,14 @@ test("production HTML and bundle initialize without source imports", async () =>
   try {
     window.document.write(html);
     window.eval(
-      await readFile(new URL("../dist/app.min.js", import.meta.url), "utf8"),
+      await readFile(
+        new URL(
+          "../dist/" +
+            window.document.querySelector("script[src]").getAttribute("src"),
+          import.meta.url,
+        ),
+        "utf8",
+      ),
     );
     assert.equal(
       window.document.querySelectorAll("#race-list .race-row").length,

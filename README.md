@@ -19,7 +19,7 @@ npm ci
 npm run dev
 ```
 
-Open `http://127.0.0.1:5173`. Edit files in `src/` and refresh your browser to see changes.
+Open `http://127.0.0.1:5173`. Edit files in `src/`; Vite automatically refreshes the browser after changes.
 
 ## Project structure
 
@@ -30,10 +30,8 @@ src/                     Readable application source
   app.js                 UI state and event handlers
   calculations.js        Pure pace and VDOT calculations
   distances.js           Shared distance definitions
-scripts/
-  build.mjs              Bundle, minify, and compress production files
-  serve.mjs              Local source/production preview server
-  export.mjs             Export a self-contained HTML calculator
+public/                  Static files copied by Vite
+vite.config.js           Vite and plugin configuration
 tests/                   Calculation, UI, and build regression tests
 .github/workflows/       Pull-request checks and GitHub Pages publishing
 dist/                    Generated production files; ignored by Git
@@ -43,21 +41,33 @@ dist/                    Generated production files; ignored by Git
 
 | Command              | Purpose                                                            |
 | -------------------- | ------------------------------------------------------------------ |
-| `npm run dev`        | Serve readable source locally                                      |
+| `npm run dev`        | Vite development server with live reload                           |
 | `npm test`           | Run calculation and UI regression tests                            |
 | `npm run build`      | Compile/bundle JS and minify HTML/CSS; generate gzip/Brotli copies |
 | `npm run compile`    | Alias for the production build                                     |
-| `npm run preview`    | Serve `dist/` after a build                                        |
+| `npm run preview`    | Vite preview of `dist/` after a build                              |
 | `npm run test:build` | Verify the production bundle and compressed assets after a build   |
 | `npm run check`      | Check formatting, run tests, build, and verify build output        |
-| `npm run format`     | Format source, scripts, tests, and documentation                   |
+| `npm run format`     | Format source, configuration, tests, and documentation             |
 | `npm run export`     | Build and export a portable HTML file into `../outputs/`           |
 
-There are no runtime npm dependencies. esbuild, the HTML minifier, Prettier, and Happy DOM are development-only tools. Versions are recorded in `package-lock.json` for reproducible installation.
+There are no runtime npm dependencies. Vite, its minification/compression/single-file plugins, cpy-cli, Prettier, and Happy DOM are development-only tools. Versions are recorded in `package-lock.json` for reproducible installation.
+
+## Build tools
+
+All tools are installed by `npm ci` from `package.json`; there are no custom scripts to maintain:
+
+- **Vite:** development server, production JS/CSS bundling and minification, and preview.
+- **vite-plugin-minify:** HTML minification.
+- **vite-plugin-compression2:** gzip and Brotli sidecars.
+- **vite-plugin-singlefile:** portable HTML with JavaScript and CSS inlined.
+- **cpy-cli:** copy the license and portable export to their destinations.
+
+The portable build is generated in `portable/index.html`, then copied into `../outputs/running-pace-calculator.html`. It requires no local JavaScript/CSS files or server. Google Fonts are optional external resources; offline use falls back to system fonts.
 
 ## Build output and deployment
 
-Never edit `dist/` directly: each build regenerates it. It contains `index.html`, `app.min.js`, `style.min.css`, their `.gz` and `.br` compressed copies, the MIT license, and `.nojekyll`.
+Never edit `dist/` directly: each build regenerates it. It contains minified `index.html`, fingerprinted JavaScript/CSS under `assets/`, their `.gz` and `.br` compressed copies, the MIT license, and `.nojekyll`. Fingerprinted filenames avoid stale browser caches after deployments.
 
 The page uses ordinary minified assets. Precompressed copies are provided for hosts that support content negotiation; GitHub Pages is not configured here to serve those sidecars automatically.
 
