@@ -10,6 +10,7 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
             disableJavaScriptFileLoading: true,
         },
     });
+    window.localStorage.setItem("stride-theme", "dark");
     window.document.write(
         await readFile(new URL("../src/index.html", import.meta.url), "utf8"),
     );
@@ -68,6 +69,16 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
             document.querySelectorAll("#race-list .race-row").length,
             18,
         );
+        assert.equal(document.documentElement.dataset.theme, "dark");
+        const themeButton = () =>
+            window.document.querySelector(".theme-toggle");
+        click(themeButton());
+        assert.equal(document.documentElement.dataset.theme, "light");
+        assert.equal(window.localStorage.getItem("stride-theme"), "light");
+        assert.equal(
+            themeButton()?.getAttribute("aria-label"),
+            "Switch to dark mode",
+        );
         assert.match(get("race-list").textContent, /0:55:00/);
         assert.equal(document.querySelector("#pace-conversions"), null);
         assert.equal(
@@ -76,6 +87,12 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
         );
         navigate("#pace-conversion");
         assert.equal(document.querySelector("#race-results"), null);
+        assert.equal(document.documentElement.dataset.theme, "light");
+        click(themeButton());
+        assert.equal(document.documentElement.dataset.theme, "dark");
+        assert.equal(window.localStorage.getItem("stride-theme"), "dark");
+        const { readTheme } = await import("../src/theme.ts");
+        assert.equal(readTheme(), "dark");
         const conversion = () => {
             const row = window.document.querySelector(
                 '#pace-conversions tr[aria-current="true"]',

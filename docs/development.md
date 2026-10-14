@@ -64,3 +64,7 @@ All tools are installed by `npm ci` from `package.json`; there are no custom scr
 The portable build is generated in `portable/index.html`, then copied into `../outputs/running-pace-calculator.html`. It requires no local JavaScript/CSS files or server. Google Fonts are optional external resources; offline use falls back to system fonts.
 
 See [deployment](deployment.md) for publishing and [contributing](contributing.md) for pull requests.
+
+## Theme preference
+
+The theme toggle is available on the calculator and pace-conversion view. A saved `stride-theme` preference in browser local storage takes precedence over the device theme at startup. If storage is unavailable, theme switching still works for the current session. Colors are defined as shared CSS variables in `src/style.css`.

@@ -1,3 +1,5 @@
+import { useTheme } from "./theme.ts";
+import { ThemeToggle } from "./components/ThemeToggle.tsx";
 import { PaceConversionPage } from "./PaceConversionPage.tsx";
 import { useEffect, useState } from "preact/hooks";
 import { clock, paceText, equivalentFinishTime } from "./calculations.ts";
@@ -36,6 +38,7 @@ const tabNames = {
 };
 
 export function App() {
+    const { theme, toggleTheme } = useTheme();
     const [showConversions, setShowConversions] = useState(
         () => window.location.hash === "#pace-conversion",
     );
@@ -79,6 +82,8 @@ export function App() {
     if (showConversions)
         return (
             <PaceConversionPage
+                theme={theme}
+                onToggleTheme={toggleTheme}
                 pace={pace}
                 unit={unit}
                 onPaceChange={setPace}
@@ -95,13 +100,16 @@ export function App() {
                 </a>
                 <div class="header-tools">
                     <span class="eyebrow">THE RUNNING PACE CALCULATOR</span>
-                    <a
-                        id="conversion-link"
-                        class="chart-link"
-                        href="#pace-conversion"
-                    >
-                        Pace conversion chart ↗
-                    </a>
+                    <div class="header-actions">
+                        <a
+                            id="conversion-link"
+                            class="chart-link"
+                            href="#pace-conversion"
+                        >
+                            Pace conversion chart ↗
+                        </a>
+                        <ThemeToggle theme={theme} onToggle={toggleTheme} />
+                    </div>
                 </div>
             </header>
             <section class="intro">
