@@ -38,30 +38,28 @@ test("production HTML and bundle initialize without source imports", async () =>
   });
   try {
     window.document.write(html);
+    const script = window.document.querySelector("script[src]");
+    assert.ok(script);
+    const source = script.getAttribute("src");
+    assert.ok(source);
     window.eval(
-      await readFile(
-        new URL(
-          "../dist/" +
-            window.document.querySelector("script[src]").getAttribute("src"),
-          import.meta.url,
-        ),
-        "utf8",
-      ),
+      await readFile(new URL("../dist/" + source, import.meta.url), "utf8"),
     );
     assert.equal(
       window.document.querySelectorAll("#race-list .race-row").length,
       18,
     );
-    window.document.getElementById("vdot-tab").click();
+    const tab = window.document.getElementById("vdot-tab");
+    assert.ok(tab instanceof window.HTMLElement);
+    tab.click();
     await window.happyDOM.waitUntilComplete();
     assert.equal(
       window.document.querySelectorAll("#training-rows tr").length,
       5,
     );
-    assert.match(
-      window.document.querySelector("footer").textContent,
-      /Built with OpenAI Codex/,
-    );
+    const footer = window.document.querySelector("footer");
+    assert.ok(footer);
+    assert.match(footer.textContent, /Built with OpenAI Codex/);
   } finally {
     await window.happyDOM.close();
   }

@@ -35,7 +35,7 @@ src/                     Readable application source
   style.css              Responsive styles
 public/                  Static files copied by Vite
 vite.config.js           Vite and plugin configuration
-tests/                   Calculation, UI, and build regression tests
+tests/                   TypeScript calculation, UI, and build regression tests
 .github/workflows/       Pull-request checks and GitHub Pages publishing
 dist/                    Generated production files; ignored by Git
 ```
@@ -45,7 +45,7 @@ dist/                    Generated production files; ignored by Git
 | Command              | Purpose                                                                               |
 | -------------------- | ------------------------------------------------------------------------------------- |
 | `npm run dev`        | Vite development server with live reload                                              |
-| `npm run typecheck`  | Check application types without emitting files                                        |
+| `npm run typecheck`  | Check application and test types without emitting files                               |
 | `npm test`           | Run calculation and UI regression tests                                               |
 | `npm run build`      | Compile/bundle JS and minify HTML/CSS; generate gzip/Brotli copies                    |
 | `npm run compile`    | Alias for the production build                                                        |

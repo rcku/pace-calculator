@@ -24,20 +24,25 @@ test("portable HTML works without local scripts or stylesheets", async () => {
       0,
     );
     assert.ok(window.document.querySelector("style"));
-    const script = window.document.querySelector("script").textContent;
+    const scriptElement = window.document.querySelector("script");
+    assert.ok(scriptElement);
+    const script = scriptElement.textContent;
     window.happyDOM.settings.disableJavaScriptEvaluation = false;
     window.eval(script);
     assert.equal(
       window.document.querySelectorAll("#race-list .race-row").length,
       18,
     );
-    window.document.getElementById("time-tab").click();
+    const timeTab = window.document.getElementById("time-tab");
+    assert.ok(timeTab instanceof window.HTMLElement);
+    timeTab.click();
     await window.happyDOM.waitUntilComplete();
-    assert.equal(
-      window.document.getElementById("target-vdot").textContent,
-      "35.8",
-    );
-    window.document.getElementById("vdot-tab").click();
+    const target = window.document.getElementById("target-vdot");
+    assert.ok(target);
+    assert.equal(target.textContent, "35.8");
+    const vdotTab = window.document.getElementById("vdot-tab");
+    assert.ok(vdotTab instanceof window.HTMLElement);
+    vdotTab.click();
     await window.happyDOM.waitUntilComplete();
     assert.equal(
       window.document.querySelectorAll("#training-rows tr").length,

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { Window } from "happy-dom";
+import { Window, type Element } from "happy-dom";
 
 test("calculator UI updates all modes, units, and invalid-input states", async () => {
   const window = new Window({
@@ -13,13 +13,38 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
   window.document.write(
     await readFile(new URL("../src/index.html", import.meta.url), "utf8"),
   );
-  globalThis.document = window.document;
-  const get = (id) => document.getElementById(id);
+  const previousDocument = Object.getOwnPropertyDescriptor(
+    globalThis,
+    "document",
+  );
+  Object.defineProperty(globalThis, "document", {
+    configurable: true,
+    value: window.document,
+  });
+  const get = (id: string) => {
+    const element = window.document.getElementById(id);
+    assert.ok(
+      element instanceof window.HTMLElement,
+      `Missing HTML element #${id}`,
+    );
+    return element;
+  };
+  const input = (id: string) => {
+    const element = get(id);
+    assert.ok(
+      element instanceof window.HTMLInputElement ||
+        element instanceof window.HTMLSelectElement,
+    );
+    return element;
+  };
   const { act } = await import("preact/test-utils");
-  const click = (element) => act(() => element.click());
-  const change = (id, value) =>
+  const click = (element: Element | null) => {
+    assert.ok(element instanceof window.HTMLElement);
+    return act(() => element.click());
+  };
+  const change = (id: string, value: string) =>
     act(() => {
-      get(id).value = value;
+      input(id).value = value;
       get(id).dispatchEvent(new window.Event("input", { bubbles: true }));
     });
   try {
@@ -30,7 +55,7 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
     assert.match(get("race-list").textContent, /0:55:00/);
     click(get("time-tab"));
     change("minutes", "50");
-    assert.equal(get("vdot-input").value, "40.0");
+    assert.equal(input("vdot-input").value, "40.0");
     click(get("vdot-tab"));
     assert.equal(
       document.querySelectorAll("#vdot-race-list .race-row").length,
@@ -48,20 +73,22 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
     change("minutes", "40");
     assert.match(get("equivalent").textContent, /8:00 min \/ mile/);
     change("seconds", "60");
-    assert.equal(get("vdot-input").value, "");
+    assert.equal(input("vdot-input").value, "");
     change("seconds", "0");
     assert.equal(get("error").hidden, true);
     click(get("pace-tab"));
-    click(document.querySelector('#pace-panel [data-unit="mi"]'));
+    click(window.document.querySelector('#pace-panel [data-unit="mi"]'));
     assert.match(get("pace-badge").textContent, /\/ mile/);
-    act(() =>
+    act(() => {
       get("pace-tab").dispatchEvent(
         new window.KeyboardEvent("keydown", { key: "End", bubbles: true }),
-      ),
-    );
+      );
+    });
     assert.equal(get("vdot-tab").getAttribute("aria-selected"), "true");
   } finally {
-    delete globalThis.document;
+    if (previousDocument)
+      Object.defineProperty(globalThis, "document", previousDocument);
+    else Reflect.deleteProperty(globalThis, "document");
     await window.happyDOM.close();
   }
 });
