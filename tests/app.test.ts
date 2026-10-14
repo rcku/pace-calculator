@@ -56,6 +56,31 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
             18,
         );
         assert.match(get("race-list").textContent, /0:55:00/);
+        const conversion = () => {
+            const row = window.document.querySelector(
+                '#pace-conversions tr[aria-current="true"]',
+            );
+            assert.ok(row);
+            return row.textContent;
+        };
+        assert.match(conversion(), /5:30Your pace8:51/);
+        change("pace-min", "5");
+        change("pace-sec", "15");
+        assert.match(conversion(), /5:15Your pace8:27/);
+        assert.equal(
+            window.document.querySelectorAll(
+                '#pace-conversions tr[aria-current="true"]',
+            ).length,
+            1,
+        );
+        change("pace-sec", "60");
+        assert.equal(
+            window.document.querySelectorAll(
+                '#pace-conversions tr[aria-current="true"]',
+            ).length,
+            0,
+        );
+        change("pace-sec", "30");
         click(get("time-tab"));
         change("minutes", "50");
         assert.equal(input("vdot-input").value, "40.0");
@@ -82,6 +107,9 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
         click(get("pace-tab"));
         click(window.document.querySelector('#pace-panel [data-unit="mi"]'));
         assert.match(get("pace-badge").textContent, /\/ mile/);
+        change("pace-min", "8");
+        change("pace-sec", "0");
+        assert.match(conversion(), /4:58Your pace8:00/);
         act(() => {
             get("pace-tab").dispatchEvent(
                 new window.KeyboardEvent("keydown", {

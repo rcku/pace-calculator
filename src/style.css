@@ -573,3 +573,12 @@ button:hover {
         font-size: 9px;
     }
 }
+
+.pace-conversion-table tr.current {
+    background: #eef5df;
+}
+.pace-conversion-table th,
+.pace-conversion-table td {
+    padding-left: 12px;
+    padding-right: 12px;
+}

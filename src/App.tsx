@@ -1,3 +1,4 @@
+import { PaceConversions } from "./components/PaceConversions.tsx";
 import { useState } from "preact/hooks";
 import { clock, paceText, equivalentFinishTime } from "./calculations.ts";
 import {
@@ -317,6 +318,9 @@ export function App() {
                                     ? (km) => paceCalculation.data!.secKm * km
                                     : undefined
                             }
+                        />
+                        <PaceConversions
+                            current={paceCalculation.data?.secKm}
                         />
                     </div>
                     <div
