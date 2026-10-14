@@ -55,8 +55,27 @@ test("portable HTML works without local scripts or stylesheets", async () => {
         assert.equal(window.document.querySelector("#race-results"), null);
         assert.equal(
             window.document.querySelectorAll("#pace-conversions tr").length,
-            16,
+            30,
         );
+        const rows = Array.from(
+            window.document.querySelectorAll("#pace-conversions tr"),
+        );
+        for (const pace of [
+            "2:40",
+            "3:10",
+            "4:20",
+            "5:50",
+            "6:00",
+            "6:30",
+            "10:00",
+        ]) {
+            assert.ok(
+                rows.some((row) =>
+                    row.querySelector("th")?.textContent.startsWith(pace),
+                ),
+                `Missing chart pace ${pace}`,
+            );
+        }
         assert.ok(window.document.querySelector('a[href="#"]'));
         window.location.hash = "";
         window.dispatchEvent(new window.Event("hashchange"));

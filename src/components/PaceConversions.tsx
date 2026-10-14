@@ -1,10 +1,10 @@
 import { paceText } from "../calculations.ts";
 import { MILE_KM } from "../distances.ts";
 
-const referencePaces = Array.from(
-    { length: 16 },
-    (_, index) => 150 + index * 30,
-);
+const referencePaces = [
+    ...Array.from({ length: 22 }, (_, index) => 150 + index * 10),
+    ...Array.from({ length: 8 }, (_, index) => 390 + index * 30),
+];
 
 export function PaceConversions({ current }: { current?: number }) {
     const paces: number[] = [...referencePaces];
