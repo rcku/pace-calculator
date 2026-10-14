@@ -15,18 +15,23 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
   );
   globalThis.document = window.document;
   const get = (id) => document.getElementById(id);
-  const change = (id, value) => {
-    get(id).value = value;
-    get(id).dispatchEvent(new window.Event("input", { bubbles: true }));
-  };
+  const { act } = await import("preact/test-utils");
+  const click = (element) => act(() => element.click());
+  const change = (id, value) =>
+    act(() => {
+      get(id).value = value;
+      get(id).dispatchEvent(new window.Event("input", { bubbles: true }));
+    });
   try {
-    await import("../src/app.js");
+    await act(async () => {
+      await import("../src/main.tsx");
+    });
     assert.equal(document.querySelectorAll("#race-list .race-row").length, 18);
     assert.match(get("race-list").textContent, /0:55:00/);
-    get("time-tab").click();
+    click(get("time-tab"));
     change("minutes", "50");
     assert.equal(get("vdot-input").value, "40.0");
-    get("vdot-tab").click();
+    click(get("vdot-tab"));
     assert.equal(
       document.querySelectorAll("#vdot-race-list .race-row").length,
       4,
@@ -36,7 +41,7 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
     change("vdot-input", "");
     assert.equal(get("training-rows").textContent, "");
     assert.equal(get("error").hidden, false);
-    get("time-tab").click();
+    click(get("time-tab"));
     change("distance", "custom");
     change("custom-distance", "5");
     change("distance-unit", "mi");
@@ -46,11 +51,13 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
     assert.equal(get("vdot-input").value, "");
     change("seconds", "0");
     assert.equal(get("error").hidden, true);
-    get("pace-tab").click();
-    document.querySelector('#pace-panel [data-unit="mi"]').click();
+    click(get("pace-tab"));
+    click(document.querySelector('#pace-panel [data-unit="mi"]'));
     assert.match(get("pace-badge").textContent, /\/ mile/);
-    get("pace-tab").dispatchEvent(
-      new window.KeyboardEvent("keydown", { key: "End", bubbles: true }),
+    act(() =>
+      get("pace-tab").dispatchEvent(
+        new window.KeyboardEvent("keydown", { key: "End", bubbles: true }),
+      ),
     );
     assert.equal(get("vdot-tab").getAttribute("aria-selected"), "true");
   } finally {

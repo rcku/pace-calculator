@@ -1,15 +1,15 @@
-import { MILE_KM } from "./distances.js";
+import { MILE_KM } from "./distances.ts";
 
-export function clock(total) {
+export function clock(total: number) {
   const t = Math.round(total);
   return `${Math.floor(t / 3600)}:${String(Math.floor(t / 60) % 60).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`;
 }
-export function paceText(total) {
+export function paceText(total: number) {
   const t = Math.round(total);
   return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, "0")}`;
 }
 // Estimate VDOT with the Daniels–Gilbert distance/time equations.
-export function targetVdot(distanceKm, timeSeconds) {
+export function targetVdot(distanceKm: number, timeSeconds: number) {
   if (
     !Number.isFinite(distanceKm) ||
     distanceKm <= 0 ||
@@ -28,7 +28,7 @@ export function targetVdot(distanceKm, timeSeconds) {
   return oxygenCost / fraction;
 }
 // Invert the VDOT equation with bisection to find equivalent race time.
-export function equivalentFinishTime(distanceKm, score) {
+export function equivalentFinishTime(distanceKm: number, score: number) {
   if (!Number.isFinite(score) || score <= 0)
     throw new RangeError("VDOT must be a positive finite number.");
   let low = 0.001,
@@ -42,14 +42,14 @@ export function equivalentFinishTime(distanceKm, score) {
   }
   return (low + high) / 2;
 }
-export function secondsPerKmAtOxygenCost(cost) {
+export function secondsPerKmAtOxygenCost(cost: number) {
   const velocity =
     (2 * (cost + 4.6)) /
     (0.182258 + Math.sqrt(0.182258 ** 2 + 4 * 0.000104 * (cost + 4.6)));
   return 60000 / velocity;
 }
 // Convert VDOT to approximate training intensities; Easy returns a range.
-export function trainingPaces(score) {
+export function trainingPaces(score: number) {
   return [
     {
       name: "Easy run",

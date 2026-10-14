@@ -9,7 +9,7 @@
 5. Run `npm run format` and `npm run check` before opening a pull request.
 6. Explain the user-visible change and relevant validation in your PR description.
 
-Use `npm run dev` while developing and `npm run build` followed by `npm run preview` to inspect the production version. The project uses plain JavaScript modules; no framework or TypeScript conversion is required.
+Use `npm run dev` while developing and `npm run build` followed by `npm run preview` to inspect the production version. The application uses Preact and strict TypeScript. Put reusable UI components in `src/components/`, input validation in `src/model.ts`, and pure formulas in `src/calculations.ts`. Vite handles JSX and TypeScript; `npm run typecheck` catches type errors before production and portable builds.
 
 Keep changes focused and preserve accessible labels, keyboard navigation, and responsive layouts. Report bugs through GitHub Issues with the inputs, expected result, and actual result.
 

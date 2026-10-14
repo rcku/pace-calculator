@@ -6,8 +6,8 @@ import {
   trainingPaces,
   clock,
   paceText,
-} from "../src/calculations.js";
-import { MILE_KM } from "../src/distances.js";
+} from "../src/calculations.ts";
+import { MILE_KM } from "../src/distances.ts";
 
 test("known race performances match reference VDOT scores", () => {
   for (const [distance, seconds, score] of [

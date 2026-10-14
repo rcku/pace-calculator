@@ -4,7 +4,7 @@
 
 [Open the calculator](https://rcku.github.io/pace-calculator/)
 
-A responsive browser calculator with three modes:
+A responsive Preact + TypeScript browser calculator with three modes:
 
 - **Pace → time:** finish times for track distances through the marathon.
 - **Time → pace:** kilometer/mile pace and target VDOT for preset or custom distances.
@@ -25,11 +25,14 @@ Open `http://127.0.0.1:5173`. Edit files in `src/`; Vite automatically refreshes
 
 ```text
 src/                     Readable application source
-  index.html             Accessible UI and page content
+  index.html             Page metadata and application mount point
+  main.tsx               Preact entry point
+  App.tsx                Shared state and three calculator modes
+  components/            Reusable inputs, race tables, and training results
+  model.ts               Typed input validation and unit conversions
+  calculations.ts        Pure pace and VDOT calculations
+  distances.ts           Typed shared distance definitions
   style.css              Responsive styles
-  app.js                 UI state and event handlers
-  calculations.js        Pure pace and VDOT calculations
-  distances.js           Shared distance definitions
 public/                  Static files copied by Vite
 vite.config.js           Vite and plugin configuration
 tests/                   Calculation, UI, and build regression tests
@@ -39,25 +42,27 @@ dist/                    Generated production files; ignored by Git
 
 ## Commands
 
-| Command              | Purpose                                                            |
-| -------------------- | ------------------------------------------------------------------ |
-| `npm run dev`        | Vite development server with live reload                           |
-| `npm test`           | Run calculation and UI regression tests                            |
-| `npm run build`      | Compile/bundle JS and minify HTML/CSS; generate gzip/Brotli copies |
-| `npm run compile`    | Alias for the production build                                     |
-| `npm run preview`    | Vite preview of `dist/` after a build                              |
-| `npm run test:build` | Verify the production bundle and compressed assets after a build   |
-| `npm run check`      | Check formatting, run tests, build, and verify build output        |
-| `npm run format`     | Format source, configuration, tests, and documentation             |
-| `npm run export`     | Build and export a portable HTML file into `../outputs/`           |
+| Command              | Purpose                                                                               |
+| -------------------- | ------------------------------------------------------------------------------------- |
+| `npm run dev`        | Vite development server with live reload                                              |
+| `npm run typecheck`  | Check application types without emitting files                                        |
+| `npm test`           | Run calculation and UI regression tests                                               |
+| `npm run build`      | Compile/bundle JS and minify HTML/CSS; generate gzip/Brotli copies                    |
+| `npm run compile`    | Alias for the production build                                                        |
+| `npm run preview`    | Vite preview of `dist/` after a build                                                 |
+| `npm run test:build` | Verify the production bundle and compressed assets after a build                      |
+| `npm run check`      | Check formatting, run tests, type-check, build, and verify production/portable output |
+| `npm run format`     | Format source, configuration, tests, and documentation                                |
+| `npm run export`     | Build and export a portable HTML file into `../outputs/`                              |
 
-There are no runtime npm dependencies. Vite, its minification/compression/single-file plugins, cpy-cli, Prettier, and Happy DOM are development-only tools. Versions are recorded in `package-lock.json` for reproducible installation.
+Preact is the only runtime npm dependency. TypeScript checks the application in strict mode; Vite transpiles TS/TSX and bundles Preact into the static website. Vite, its minification/compression/single-file plugins, cpy-cli, Prettier, and Happy DOM are development-only tools. Versions are recorded in `package-lock.json` for reproducible installation.
 
 ## Build tools
 
 All tools are installed by `npm ci` from `package.json`; there are no custom scripts to maintain:
 
-- **Vite:** development server, production JS/CSS bundling and minification, and preview.
+- **Preact + TypeScript:** typed components and shared state, checked with `tsc --noEmit`.
+- **Vite + @preact/preset-vite:** development server, production JS/CSS bundling and minification, and preview.
 - **vite-plugin-minify:** HTML minification.
 - **vite-plugin-compression2:** gzip and Brotli sidecars.
 - **vite-plugin-singlefile:** portable HTML with JavaScript and CSS inlined.

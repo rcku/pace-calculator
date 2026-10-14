@@ -53,6 +53,7 @@ test("production HTML and bundle initialize without source imports", async () =>
       18,
     );
     window.document.getElementById("vdot-tab").click();
+    await window.happyDOM.waitUntilComplete();
     assert.equal(
       window.document.querySelectorAll("#training-rows tr").length,
       5,

@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import preact from "@preact/preset-vite";
 import { ViteMinifyPlugin } from "vite-plugin-minify";
 import { compression } from "vite-plugin-compression2";
 import { viteSingleFile } from "vite-plugin-singlefile";
@@ -13,6 +14,7 @@ export default defineConfig(({ mode }) => {
     server: { host: "127.0.0.1", port: 5173, strictPort: true },
     preview: { host: "127.0.0.1", port: 4173, strictPort: true },
     plugins: [
+      preact(),
       ...(portable ? [viteSingleFile({ removeViteModuleLoader: true })] : []),
       ViteMinifyPlugin({ collapseWhitespace: true, removeComments: true }),
       ...(!portable

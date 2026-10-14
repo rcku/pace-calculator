@@ -32,11 +32,13 @@ test("portable HTML works without local scripts or stylesheets", async () => {
       18,
     );
     window.document.getElementById("time-tab").click();
+    await window.happyDOM.waitUntilComplete();
     assert.equal(
       window.document.getElementById("target-vdot").textContent,
       "35.8",
     );
     window.document.getElementById("vdot-tab").click();
+    await window.happyDOM.waitUntilComplete();
     assert.equal(
       window.document.querySelectorAll("#training-rows tr").length,
       5,

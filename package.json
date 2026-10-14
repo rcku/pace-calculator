@@ -15,15 +15,16 @@
   "scripts": {
     "dev": "vite",
     "preview": "vite preview",
-    "build": "vite build && cpy LICENSE dist",
+    "build": "npm run typecheck && vite build && cpy LICENSE dist",
     "compile": "npm run build",
-    "test": "node --test tests/calculations.test.js tests/app.test.js",
+    "test": "node --import tsx --test tests/calculations.test.js tests/app.test.js",
     "test:build": "node --test tests/build.test.js",
     "check": "npm run format:check && npm test && npm run build && npm run test:build && npm run export && npm run test:export",
-    "format": "prettier --write src tests vite.config.js package.json README.md CONTRIBUTING.md .github/workflows",
-    "format:check": "prettier --check src tests vite.config.js package.json README.md CONTRIBUTING.md .github/workflows",
-    "export": "vite build --mode portable && cpy portable/index.html ../outputs --rename=running-pace-calculator.html",
-    "test:export": "node --test tests/export.test.js"
+    "format": "prettier --write src tests vite.config.js package.json tsconfig.json README.md CONTRIBUTING.md .github/workflows",
+    "format:check": "prettier --check src tests vite.config.js package.json tsconfig.json README.md CONTRIBUTING.md .github/workflows",
+    "export": "npm run typecheck && vite build --mode portable && cpy portable/index.html ../outputs --rename=running-pace-calculator.html",
+    "test:export": "node --test tests/export.test.js",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "cpy-cli": "7.0.0",
@@ -32,6 +33,12 @@
     "vite": "8.3.4",
     "vite-plugin-minify": "3.0.0",
     "vite-plugin-singlefile": "2.3.3",
-    "vite-plugin-compression2": "2.5.3"
+    "vite-plugin-compression2": "2.5.3",
+    "@preact/preset-vite": "2.10.6",
+    "typescript": "7.0.2",
+    "tsx": "4.23.15"
+  },
+  "dependencies": {
+    "preact": "11.0.1"
   }
 }
