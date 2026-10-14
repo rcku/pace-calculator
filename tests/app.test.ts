@@ -13,6 +13,14 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
     window.document.write(
         await readFile(new URL("../src/index.html", import.meta.url), "utf8"),
     );
+    const previousWindow = Object.getOwnPropertyDescriptor(
+        globalThis,
+        "window",
+    );
+    Object.defineProperty(globalThis, "window", {
+        configurable: true,
+        value: window,
+    });
     const previousDocument = Object.getOwnPropertyDescriptor(
         globalThis,
         "document",
@@ -47,6 +55,11 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
             input(id).value = value;
             get(id).dispatchEvent(new window.Event("input", { bubbles: true }));
         });
+    const navigate = (hash: string) =>
+        act(() => {
+            window.location.hash = hash;
+            window.dispatchEvent(new window.Event("hashchange"));
+        });
     try {
         await act(async () => {
             await import("../src/main.tsx");
@@ -56,6 +69,13 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
             18,
         );
         assert.match(get("race-list").textContent, /0:55:00/);
+        assert.equal(document.querySelector("#pace-conversions"), null);
+        assert.equal(
+            get("conversion-link").getAttribute("href"),
+            "#pace-conversion",
+        );
+        navigate("#pace-conversion");
+        assert.equal(document.querySelector("#race-results"), null);
         const conversion = () => {
             const row = window.document.querySelector(
                 '#pace-conversions tr[aria-current="true"]',
@@ -81,6 +101,8 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
             0,
         );
         change("pace-sec", "30");
+        navigate("");
+        assert.equal(document.querySelector("#pace-conversions"), null);
         click(get("time-tab"));
         change("minutes", "50");
         assert.equal(input("vdot-input").value, "40.0");
@@ -109,7 +131,9 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
         assert.match(get("pace-badge").textContent, /\/ mile/);
         change("pace-min", "8");
         change("pace-sec", "0");
+        navigate("#pace-conversion");
         assert.match(conversion(), /4:58Your pace8:00/);
+        navigate("");
         act(() => {
             get("pace-tab").dispatchEvent(
                 new window.KeyboardEvent("keydown", {
@@ -120,6 +144,9 @@ test("calculator UI updates all modes, units, and invalid-input states", async (
         });
         assert.equal(get("vdot-tab").getAttribute("aria-selected"), "true");
     } finally {
+        if (previousWindow)
+            Object.defineProperty(globalThis, "window", previousWindow);
+        else Reflect.deleteProperty(globalThis, "window");
         if (previousDocument)
             Object.defineProperty(globalThis, "document", previousDocument);
         else Reflect.deleteProperty(globalThis, "document");

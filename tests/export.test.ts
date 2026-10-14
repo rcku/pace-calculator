@@ -49,6 +49,25 @@ test("portable HTML works without local scripts or stylesheets", async () => {
             window.document.querySelectorAll("#training-rows tr").length,
             5,
         );
+        window.location.hash = "#pace-conversion";
+        window.dispatchEvent(new window.Event("hashchange"));
+        await window.happyDOM.waitUntilComplete();
+        assert.equal(window.document.querySelector("#race-results"), null);
+        assert.equal(
+            window.document.querySelectorAll("#pace-conversions tr").length,
+            16,
+        );
+        assert.ok(window.document.querySelector('a[href="#"]'));
+        window.location.hash = "";
+        window.dispatchEvent(new window.Event("hashchange"));
+        await window.happyDOM.waitUntilComplete();
+        assert.equal(window.document.querySelector("#pace-conversions"), null);
+        assert.equal(
+            window.document
+                .getElementById("vdot-tab")
+                ?.getAttribute("aria-selected"),
+            "true",
+        );
     } finally {
         await window.happyDOM.close();
     }

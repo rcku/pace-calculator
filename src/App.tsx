@@ -1,5 +1,5 @@
-import { PaceConversions } from "./components/PaceConversions.tsx";
-import { useState } from "preact/hooks";
+import { PaceConversionPage } from "./PaceConversionPage.tsx";
+import { useEffect, useState } from "preact/hooks";
 import { clock, paceText, equivalentFinishTime } from "./calculations.ts";
 import {
     MILE_KM,
@@ -36,6 +36,15 @@ const tabNames = {
 };
 
 export function App() {
+    const [showConversions, setShowConversions] = useState(
+        () => window.location.hash === "#pace-conversion",
+    );
+    useEffect(() => {
+        const updateView = () =>
+            setShowConversions(window.location.hash === "#pace-conversion");
+        window.addEventListener("hashchange", updateView);
+        return () => window.removeEventListener("hashchange", updateView);
+    }, []);
     const [mode, setMode] = useState<Mode>("pace");
     const [unit, setUnit] = useState<Unit>("km");
     const [pace, setPace] = useState(initialPace);
@@ -67,6 +76,16 @@ export function App() {
     const paceFields = ["minutes", "seconds"] as const;
     const finishFields = ["hours", "minutes", "seconds"] as const;
 
+    if (showConversions)
+        return (
+            <PaceConversionPage
+                pace={pace}
+                unit={unit}
+                onPaceChange={setPace}
+                onUnitChange={changeUnit}
+            />
+        );
+
     return (
         <main>
             <header>
@@ -74,7 +93,16 @@ export function App() {
                     <span class="mark">↗</span> stride
                     <span class="brand-dot">.</span>
                 </a>
-                <span class="eyebrow">THE RUNNING PACE CALCULATOR</span>
+                <div class="header-tools">
+                    <span class="eyebrow">THE RUNNING PACE CALCULATOR</span>
+                    <a
+                        id="conversion-link"
+                        class="chart-link"
+                        href="#pace-conversion"
+                    >
+                        Pace conversion chart ↗
+                    </a>
+                </div>
             </header>
             <section class="intro">
                 <span class="kicker">EVERY SECOND COUNTS</span>
@@ -318,9 +346,6 @@ export function App() {
                                     ? (km) => paceCalculation.data!.secKm * km
                                     : undefined
                             }
-                        />
-                        <PaceConversions
-                            current={paceCalculation.data?.secKm}
                         />
                     </div>
                     <div
