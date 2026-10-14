@@ -1,45 +1,45 @@
 {
-  "name": "stride-pace-calculator",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Running pace, race equivalents, and VDOT training pace calculator",
-  "type": "module",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rcku/pace-calculator.git"
-  },
-  "engines": {
-    "node": ">=24"
-  },
-  "scripts": {
-    "dev": "vite",
-    "preview": "vite preview",
-    "build": "npm run typecheck && vite build && cpy LICENSE dist",
-    "compile": "npm run build",
-    "test": "node --import tsx --test tests/calculations.test.ts tests/app.test.ts",
-    "test:build": "node --import tsx --test tests/build.test.ts",
-    "check": "npm run format:check && npm test && npm run build && npm run test:build && npm run export && npm run test:export",
-    "format": "prettier --write src tests vite.config.js package.json tsconfig.json README.md CONTRIBUTING.md .github/workflows",
-    "format:check": "prettier --check src tests vite.config.js package.json tsconfig.json README.md CONTRIBUTING.md .github/workflows",
-    "export": "npm run typecheck && vite build --mode portable && cpy portable/index.html ../outputs --rename=running-pace-calculator.html",
-    "test:export": "node --import tsx --test tests/export.test.ts",
-    "typecheck": "tsc --noEmit"
-  },
-  "devDependencies": {
-    "@preact/preset-vite": "2.10.6",
-    "@types/node": "24.19.2",
-    "cpy-cli": "7.0.0",
-    "happy-dom": "21.0.1",
-    "prettier": "3.6.2",
-    "tsx": "4.23.15",
-    "typescript": "7.0.2",
-    "vite": "8.3.4",
-    "vite-plugin-compression2": "2.5.3",
-    "vite-plugin-minify": "3.0.0",
-    "vite-plugin-singlefile": "2.3.3"
-  },
-  "dependencies": {
-    "preact": "11.0.1"
-  }
+    "name": "stride-pace-calculator",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Running pace, race equivalents, and VDOT training pace calculator",
+    "type": "module",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rcku/pace-calculator.git"
+    },
+    "engines": {
+        "node": ">=24"
+    },
+    "scripts": {
+        "dev": "vite",
+        "preview": "vite preview",
+        "build": "npm run typecheck && vite build && cpy LICENSE dist",
+        "compile": "npm run build",
+        "test": "node --import tsx --test tests/calculations.test.ts tests/app.test.ts",
+        "test:build": "node --import tsx --test tests/build.test.ts",
+        "check": "npm run format:check && npm test && npm run build && npm run test:build && npm run export && npm run test:export",
+        "format": "prettier --write src tests vite.config.js package.json tsconfig.json .prettierrc.json README.md CONTRIBUTING.md .github/workflows",
+        "format:check": "prettier --check src tests vite.config.js package.json tsconfig.json .prettierrc.json README.md CONTRIBUTING.md .github/workflows",
+        "export": "npm run typecheck && vite build --mode portable && cpy portable/index.html ../outputs --rename=running-pace-calculator.html",
+        "test:export": "node --import tsx --test tests/export.test.ts",
+        "typecheck": "tsc --noEmit"
+    },
+    "devDependencies": {
+        "@preact/preset-vite": "2.10.6",
+        "@types/node": "24.19.2",
+        "cpy-cli": "7.0.0",
+        "happy-dom": "21.0.1",
+        "prettier": "3.6.2",
+        "tsx": "4.23.15",
+        "typescript": "7.0.2",
+        "vite": "8.3.4",
+        "vite-plugin-compression2": "2.5.3",
+        "vite-plugin-minify": "3.0.0",
+        "vite-plugin-singlefile": "2.3.3"
+    },
+    "dependencies": {
+        "preact": "11.0.1"
+    }
 }
