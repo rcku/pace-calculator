@@ -18,3 +18,5 @@ Keep changes focused and preserve accessible labels, keyboard navigation, and re
 ## AI attribution
 
 For AI-generated or materially modified work, name the tool truthfully. For OpenAI Codex contributions, include a blank line followed by `🤖 Built with OpenAI Codex` in commit messages, and an **AI assistance** section containing `🤖 Created with OpenAI Codex` in PR descriptions. Preserve human attribution and existing copyright/license notices.
+
+See [development](development.md) for project structure and commands.
