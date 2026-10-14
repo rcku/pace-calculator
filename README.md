@@ -1,5 +1,7 @@
 # Stride — Running pace calculator
 
+🤖 Built with OpenAI Codex
+
 A responsive running calculator with pace-to-time, time-to-pace, and VDOT-to-time modes. Includes equivalent race performances and estimated training paces in kilometers and miles.
 
 Website: https://rcku.github.io/pace-calculator/
