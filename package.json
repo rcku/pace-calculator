@@ -1,0 +1,33 @@
+{
+  "name": "stride-pace-calculator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Running pace, race equivalents, and VDOT training pace calculator",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rcku/pace-calculator.git"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "preview": "node scripts/serve.mjs --dist",
+    "build": "node scripts/build.mjs",
+    "compile": "npm run build",
+    "test": "node --test tests/calculations.test.js tests/app.test.js",
+    "test:build": "node --test tests/build.test.js",
+    "check": "npm run format:check && npm test && npm run build && npm run test:build",
+    "format": "prettier --write src scripts tests package.json README.md CONTRIBUTING.md .github/workflows",
+    "format:check": "prettier --check src scripts tests package.json README.md CONTRIBUTING.md .github/workflows",
+    "export": "npm run build && node scripts/export.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "happy-dom": "21.0.1",
+    "html-minifier-terser": "7.2.0",
+    "prettier": "3.6.2"
+  }
+}

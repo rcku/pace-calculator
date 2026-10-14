@@ -1,25 +1,12 @@
-"use strict";
-const MILE_KM = 1.609344;
-const races = [
-  ["200 m", 0.2],
-  ["400 m", 0.4],
-  ["600 m", 0.6],
-  ["800 m", 0.8],
-  ["1 km", 1],
-  ["1 mile", MILE_KM],
-  ["2 km", 2],
-  ["3 km", 3],
-  ["4 km", 4],
-  ["5 km", 5],
-  ["10 km", 10],
-  ["15 km", 15],
-  ["20 km", 20],
-  ["Half marathon", 21.0975],
-  ["25 km", 25],
-  ["30 km", 30],
-  ["35 km", 35],
-  ["Marathon", 42.195],
-];
+import { MILE_KM, races } from "./distances.js";
+import {
+  clock,
+  paceText,
+  targetVdot,
+  equivalentFinishTime,
+  trainingPaces,
+} from "./calculations.js";
+
 const $ = (id) => document.getElementById(id);
 let mode = "pace",
   unit = "km";
@@ -27,78 +14,6 @@ const milesText = (km) => (km / MILE_KM).toFixed(2) + " mi";
 for (const option of $("distance").options) {
   if (option.value !== "custom")
     option.textContent += ` (${milesText(Number(option.value))})`;
-}
-function clock(total) {
-  const t = Math.round(total);
-  return `${Math.floor(t / 3600)}:${String(Math.floor(t / 60) % 60).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`;
-}
-function paceText(total) {
-  const t = Math.round(total);
-  return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, "0")}`;
-}
-// Estimate VDOT with the Daniels–Gilbert distance/time equations.
-function targetVdot(distanceKm, timeSeconds) {
-  const minutes = timeSeconds / 60;
-  const velocity = (distanceKm * 1000) / minutes;
-  const oxygenCost =
-    -4.6 + 0.182258 * velocity + 0.000104 * velocity * velocity;
-  const fraction =
-    0.8 +
-    0.1894393 * Math.exp(-0.012778 * minutes) +
-    0.2989558 * Math.exp(-0.1932605 * minutes);
-  return oxygenCost / fraction;
-}
-// Invert the VDOT equation with bisection to find equivalent race time.
-function equivalentFinishTime(distanceKm, score) {
-  let low = 0.001,
-    high = 3600;
-  while (targetVdot(distanceKm, low) < score) low /= 2;
-  while (targetVdot(distanceKm, high) > score) high *= 2;
-  for (let i = 0; i < 100; i++) {
-    const mid = (low + high) / 2;
-    if (targetVdot(distanceKm, mid) > score) low = mid;
-    else high = mid;
-  }
-  return (low + high) / 2;
-}
-function secondsPerKmAtOxygenCost(cost) {
-  const velocity =
-    (2 * (cost + 4.6)) /
-    (0.182258 + Math.sqrt(0.182258 ** 2 + 4 * 0.000104 * (cost + 4.6)));
-  return 60000 / velocity;
-}
-// Convert VDOT to approximate training intensities; Easy returns a range.
-function trainingPaces(score) {
-  return [
-    {
-      name: "Easy run",
-      description: "Relaxed, conversational",
-      paces: [
-        secondsPerKmAtOxygenCost(score * 0.74),
-        secondsPerKmAtOxygenCost(score * 0.59),
-      ],
-    },
-    {
-      name: "Marathon",
-      description: "Sustained race effort",
-      paces: [equivalentFinishTime(42.195, score) / 42.195],
-    },
-    {
-      name: "Threshold",
-      description: "Comfortably hard",
-      paces: [secondsPerKmAtOxygenCost(score * 0.88)],
-    },
-    {
-      name: "Interval",
-      description: "Hard aerobic repeats",
-      paces: [secondsPerKmAtOxygenCost(score)],
-    },
-    {
-      name: "Repetition",
-      description: "Short repeats, full recovery",
-      paces: [equivalentFinishTime(MILE_KM, score) / MILE_KM],
-    },
-  ];
 }
 function renderVdot() {
   const raw = $("vdot-input").value;
