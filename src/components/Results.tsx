@@ -68,9 +68,22 @@ export function RaceTable({
                                     </strong>
                                     {showPace && (
                                         <small>
-                                            {paceText(seconds / km)} / km ·{" "}
-                                            {paceText((seconds / km) * MILE_KM)}{" "}
-                                            / mile
+                                            <span class="race-pace">
+                                                {paceText(seconds / km)} / km
+                                            </span>
+                                            <span
+                                                class="pace-separator"
+                                                aria-hidden="true"
+                                            >
+                                                {" "}
+                                                ·{" "}
+                                            </span>
+                                            <span class="race-pace">
+                                                {paceText(
+                                                    (seconds / km) * MILE_KM,
+                                                )}{" "}
+                                                / mile
+                                            </span>
                                         </small>
                                     )}
                                 </span>
@@ -81,6 +94,27 @@ export function RaceTable({
         </>
     );
 }
+function PaceRange({
+    values,
+    multiplier = 1,
+}: {
+    values: number[];
+    multiplier?: number;
+}) {
+    return (
+        <>
+            {values.map((value, index) => (
+                <span key={index}>
+                    {index > 0 && <span class="range-separator">–</span>}
+                    <span class="pace-value">
+                        {paceText(value * multiplier)}
+                    </span>
+                </span>
+            ))}
+        </>
+    );
+}
+
 export function TrainingPaces({ score }: { score?: number }) {
     return (
         <section class="training-section" aria-labelledby="training-title">
@@ -104,13 +138,14 @@ export function TrainingPaces({ score }: { score?: number }) {
                                         {row.name}
                                         <small>{row.description}</small>
                                     </th>
-                                    <td>{row.paces.map(paceText).join("–")}</td>
                                     <td>
-                                        {row.paces
-                                            .map((value) =>
-                                                paceText(value * MILE_KM),
-                                            )
-                                            .join("–")}
+                                        <PaceRange values={row.paces} />
+                                    </td>
+                                    <td>
+                                        <PaceRange
+                                            values={row.paces}
+                                            multiplier={MILE_KM}
+                                        />
                                     </td>
                                 </tr>
                             ))}

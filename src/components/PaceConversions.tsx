@@ -23,33 +23,40 @@ export function PaceConversions({ current }: { current?: number }) {
             <p class="hint">
                 Compare common paces. Your current pace is highlighted.
             </p>
-            <table class="training-table pace-conversion-table">
-                <thead>
-                    <tr>
-                        <th scope="col">MIN / KM</th>
-                        <th scope="col">MIN / MILE</th>
-                    </tr>
-                </thead>
-                <tbody id="pace-conversions" aria-live="polite">
-                    {paces.map((seconds) => (
-                        <tr
-                            key={seconds}
-                            class={seconds === current ? "current" : ""}
-                            aria-current={
-                                seconds === current ? "true" : undefined
-                            }
-                        >
-                            <th scope="row">
-                                {paceText(seconds)}
-                                {seconds === current && (
-                                    <small>Your pace</small>
-                                )}
-                            </th>
-                            <td>{paceText(seconds * MILE_KM)}</td>
+            <div
+                class="pace-chart-scroll"
+                role="region"
+                aria-label="Pace conversion values"
+                tabIndex={0}
+            >
+                <table class="training-table pace-conversion-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">MIN / KM</th>
+                            <th scope="col">MIN / MILE</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody id="pace-conversions" aria-live="polite">
+                        {paces.map((seconds) => (
+                            <tr
+                                key={seconds}
+                                class={seconds === current ? "current" : ""}
+                                aria-current={
+                                    seconds === current ? "true" : undefined
+                                }
+                            >
+                                <th scope="row">
+                                    {paceText(seconds)}
+                                    {seconds === current && (
+                                        <small>Your pace</small>
+                                    )}
+                                </th>
+                                <td>{paceText(seconds * MILE_KM)}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
             <p class="target-note">
                 1 mile = 1.609344 km. Paces rounded to the nearest second.
             </p>

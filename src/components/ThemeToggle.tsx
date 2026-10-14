@@ -17,7 +17,9 @@ export function ThemeToggle({
             onClick={onToggle}
         >
             <span aria-hidden="true">{dark ? "☀" : "☾"}</span>{" "}
-            {dark ? "Light" : "Dark"} mode
+            <span class="theme-toggle-label">
+                {dark ? "Light" : "Dark"} mode
+            </span>
         </button>
     );
 }
