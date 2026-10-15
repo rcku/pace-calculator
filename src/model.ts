@@ -9,7 +9,7 @@ export type FinishInput = PaceInput & {
     customDistance: string;
     customUnit: Unit;
 };
-export const initialPace: PaceInput = { minutes: "5", seconds: "30" };
+export const initialPace: PaceInput = { minutes: "5", seconds: "0" };
 export const initialFinish: FinishInput = {
     hours: "0",
     minutes: "55",

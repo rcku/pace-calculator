@@ -16,7 +16,7 @@ test("pace results update across units and distances", () => {
         window.document.querySelectorAll("#race-list .race-row").length,
         18,
     );
-    assert.match(get("race-list").textContent, /0:55:00/);
+    assert.match(get("race-list").textContent, /0:50:00/);
     click(window.document.querySelector('#pace-panel [data-unit="mi"]'));
     assert.match(get("pace-badge").textContent, /\/ mile/);
     change("pace-min", "8");
@@ -106,7 +106,7 @@ test("conversion navigation preserves pace and highlights only valid input", () 
         window.document.querySelectorAll("#pace-conversions tr").length,
         51,
     );
-    assert.match(currentRows()[0].textContent, /5:30Your pace8:51/);
+    assert.match(currentRows()[0].textContent, /5:00Your pace8:03/);
     change("pace-sec", "15");
     assert.equal(currentRows().length, 1);
     assert.match(currentRows()[0].textContent, /5:15Your pace8:27/);
