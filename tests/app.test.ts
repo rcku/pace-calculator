@@ -235,3 +235,45 @@ test("marathon examples show distance options, strides, and fitness-specific rep
     assert.match(get("training-easy-run-workouts").textContent, /24–32 km/);
     assert.match(get("training-easy-run-workouts").textContent, /strides/);
 });
+
+test("every training example uses the same labeled format, including alternatives", () => {
+    const { get, click, change } = app;
+    click(get("vdot-tab"));
+    const types = [
+        "easy-run",
+        "marathon",
+        "threshold",
+        "interval",
+        "repetition",
+    ];
+    for (const type of types) click(get(`training-${type}-toggle`));
+    for (const score of ["56.5", "25"]) {
+        change("vdot-input", score);
+        for (const type of types) {
+            for (const example of get(
+                `training-${type}-workouts`,
+            ).querySelectorAll("li")) {
+                const labels = Array.from(
+                    example.querySelectorAll("dt"),
+                    (item) => item.textContent,
+                );
+                assert.deepEqual(labels.slice(0, 4), [
+                    "Work",
+                    "Pace",
+                    "Recovery",
+                    "Total work",
+                ]);
+                for (const value of example.querySelectorAll("dd"))
+                    assert.ok(value.textContent.trim());
+            }
+        }
+    }
+    assert.match(
+        get("training-easy-run-workouts").textContent,
+        /None—continuous run/,
+    );
+    const strides = Array.from(
+        get("training-repetition-workouts").querySelectorAll("li"),
+    ).find((item) => item.querySelector("strong")?.textContent === "Strides")!;
+    assert.doesNotMatch(strides.textContent, /Repeat time/);
+});
