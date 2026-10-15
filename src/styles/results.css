@@ -414,3 +414,16 @@
     color: var(--ink);
     text-underline-offset: 3px;
 }
+
+.training-context {
+    margin: 0 0 12px;
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.training-workouts .workout-timing {
+    margin-top: 4px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+}

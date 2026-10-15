@@ -1,7 +1,7 @@
 import { useState } from "preact/hooks";
 import { trainingPaces, paceText, type TrainingPace } from "../calculations.ts";
 import { MILE_KM } from "../distances.ts";
-import { trainingWorkouts } from "../trainingWorkouts.ts";
+import { trainingWorkouts, workoutTiming } from "../trainingWorkouts.ts";
 
 function PaceRange({
     values,
@@ -63,16 +63,33 @@ function TrainingRow({ row }: { row: TrainingPace }) {
                         role="region"
                         aria-labelledby={`${id}-toggle`}
                     >
-                        <h3>Common workouts</h3>
+                        <h3>Marathon training examples</h3>
                         <p>{guide.cue}</p>
                         <ul>
-                            {guide.sessions.map((session) => (
-                                <li key={session.name}>
-                                    <strong>{session.name}</strong>
-                                    <span>{session.detail}</span>
-                                </li>
-                            ))}
+                            {guide.sessions.map((session) => {
+                                const timing = workoutTiming(
+                                    row.name,
+                                    session,
+                                    row.paces[0],
+                                );
+                                return (
+                                    <li key={session.name}>
+                                        <strong>{session.name}</strong>
+                                        <span>
+                                            {timing?.suitable === false
+                                                ? timing.text
+                                                : session.detail}
+                                        </span>
+                                        {timing?.suitable && (
+                                            <span class="workout-timing">
+                                                {timing.text}
+                                            </span>
+                                        )}
+                                    </li>
+                                );
+                            })}
                         </ul>
+                        <p>{guide.usage}</p>
                         <a
                             href={guide.source}
                             target="_blank"
@@ -92,9 +109,11 @@ export function TrainingPaces({ score }: { score?: number }) {
         <section class="training-section" aria-labelledby="training-title">
             <span class="step">03 / TRAINING PACES</span>
             <h2 id="training-title">Find your training rhythm.</h2>
+            <p class="training-context">Marathon focus · 80–120 km/week</p>
             <p class="hint">
-                Estimated paces for the VDOT entered above. Tap a run type for
-                common workouts.
+                Tap a run type for sessions and repeat times at this VDOT. Use
+                the lower end of each range near 80 km/week, and the upper end
+                only when established at 100–120 km/week.
             </p>
             <div class="training-table-wrap">
                 <table class="training-table">
@@ -114,10 +133,12 @@ export function TrainingPaces({ score }: { score?: number }) {
                 </table>
             </div>
             <p class="target-note">
-                Use a recent race result to set paces for your current fitness.
-                Examples are individual sessions. Scale duration and repetitions
-                to your current weekly mileage. Add easy running to warm up and
-                cool down around faster sessions.
+                Set VDOT from a recent race, rather than an aspirational goal.
+                Choose sessions as alternatives: a midweek workout and, when
+                recovered, a marathon-focused long run. Keep the other days
+                easy. Use I/R sessions periodically in place of another workout.
+                Include 2–3 km easy before and after faster sessions; these
+                kilometers and all recovery jogs count toward weekly volume.
             </p>
             <details class="training-method">
                 <summary>About these estimates</summary>
