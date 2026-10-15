@@ -74,7 +74,10 @@ function TrainingRow({ row }: { row: TrainingPace }) {
     const guide = trainingWorkouts[row.name];
     return (
         <>
-            <tr class="training-pace-row">
+            <tr
+                class="training-pace-row"
+                onClick={() => setExpanded((current) => !current)}
+            >
                 <th scope="row">
                     <button
                         id={`${id}-toggle`}
@@ -82,7 +85,6 @@ function TrainingRow({ row }: { row: TrainingPace }) {
                         type="button"
                         aria-expanded={expanded}
                         aria-controls={`${id}-workouts`}
-                        onClick={() => setExpanded(!expanded)}
                     >
                         <span class="training-toggle-label">
                             <span>{row.name}</span>

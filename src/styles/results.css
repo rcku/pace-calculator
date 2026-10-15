@@ -460,3 +460,20 @@
         margin-right: 6px;
     }
 }
+
+.training-pace-row {
+    cursor: pointer;
+}
+
+.training-pace-row:hover {
+    background: var(--controls);
+}
+
+.training-pace-row:focus-within {
+    outline: 3px solid #7ca754;
+    outline-offset: -3px;
+}
+
+.training-pace-row .training-toggle:focus-visible {
+    outline: none;
+}

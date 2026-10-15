@@ -277,3 +277,25 @@ test("every training example uses the same labeled format, including alternative
     ).find((item) => item.querySelector("strong")?.textContent === "Strides")!;
     assert.doesNotMatch(strides.textContent, /Repeat time/);
 });
+
+test("the whole training row toggles once from its cells, text, or button", () => {
+    const { get, click } = app;
+    click(get("vdot-tab"));
+    const toggle = get("training-interval-toggle");
+    const row = toggle.closest("tr")!;
+    for (const target of [
+        row,
+        row.querySelector("th"),
+        ...row.querySelectorAll("td"),
+        row.querySelector("td span"),
+        toggle,
+    ]) {
+        click(target);
+        assert.equal(toggle.getAttribute("aria-expanded"), "true");
+        click(target);
+        assert.equal(toggle.getAttribute("aria-expanded"), "false");
+    }
+    click(toggle);
+    click(get("training-interval-workouts").querySelector("dt"));
+    assert.equal(toggle.getAttribute("aria-expanded"), "true");
+});
