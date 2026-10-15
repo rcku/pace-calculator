@@ -28,7 +28,7 @@ src/                     Readable application source
   styles/                Theme tokens, layout, controls, results, and conversion styles
 docs/                    Development, deployment, calculations, and contribution guides
 public/                  Static files copied by Vite
-vite.config.js           Vite and plugin configuration
+vite.config.ts           Vite and plugin configuration
 tests/                   TypeScript calculation, UI, and build regression tests
 .github/workflows/       Pull-request checks and GitHub Pages publishing
 dist/                    Generated production files; ignored by Git
@@ -49,7 +49,7 @@ dist/                    Generated production files; ignored by Git
 | `npm run format`     | Format source, configuration, tests, and documentation                                |
 | `npm run export`     | Build a portable HTML file at `portable/index.html`                                   |
 
-Preact is the only runtime npm dependency. TypeScript checks the application in strict mode; Vite transpiles TS/TSX and bundles Preact into the static website. Vite, its minification/compression/single-file plugins, cpy-cli, Prettier, and Happy DOM are development-only tools. Versions are recorded in `package-lock.json` for reproducible installation.
+Preact is the only runtime npm dependency. TypeScript checks the application in strict mode with browser types (`tsconfig.json`), and tests/build configuration with Node types (`tsconfig.node.json`); Vite transpiles TS/TSX and bundles Preact into the static website. Vite, its minification/compression/single-file plugins, cpy-cli, Prettier, and Happy DOM are development-only tools. Versions are recorded in `package-lock.json` for reproducible installation.
 
 ## Build tools
 
