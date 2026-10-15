@@ -17,7 +17,7 @@
         "preview": "vite preview",
         "build": "npm run typecheck && vite build && cpy LICENSE dist",
         "compile": "npm run build",
-        "test": "node --import tsx --test tests/calculations.test.ts tests/app.test.ts",
+        "test": "node --import tsx --test tests/calculations.test.ts tests/app.test.ts tests/workouts.test.ts",
         "test:build": "node --import tsx --test tests/build.test.ts",
         "check": "npm run format:check && npm test && npm run build && npm run test:build && npm run export && npm run test:export",
         "format": "prettier --write src tests vite.config.ts package.json tsconfig.json tsconfig.node.json .prettierrc.json README.md docs .github/workflows",

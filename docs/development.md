@@ -72,4 +72,4 @@ The theme toggle is available on the calculator and pace-conversion view. A save
 
 ## Test organization
 
-`tests/calculations.test.ts` covers the pure formulas. `tests/app.test.ts` uses a fresh mounted application for each interaction scenario, with setup and cleanup in `tests/helpers/app.ts`. Build tests discover generated assets and verify each compressed copy; they do not assume a fixed number of bundles. Portable-output tests verify the standalone HTML.
+`tests/calculations.test.ts` covers the pure formulas. `tests/workouts.test.ts` checks VDOT-based repeat durations and intensity limits. `tests/app.test.ts` uses a fresh mounted application for each interaction scenario, with setup and cleanup in `tests/helpers/app.ts`. Build tests discover generated assets and verify each compressed copy; they do not assume a fixed number of bundles. Portable-output tests verify the standalone HTML.

@@ -190,3 +190,41 @@ test("training workout sections expand independently and keep pace updates", () 
         );
     }
 });
+
+test("marathon examples show distance options, strides, and fitness-specific repeat guidance", () => {
+    const { window, get, click, change } = app;
+    click(get("vdot-tab"));
+    assert.match(
+        window.document.querySelector(".training-context")!.textContent,
+        /80–120 km\/week/,
+    );
+    click(get("training-repetition-toggle"));
+    const repetition = get("training-repetition-workouts");
+    for (const name of ["Track 300s", "Track 400s", "Track 600s", "Strides"]) {
+        assert.ok(repetition.textContent.includes(name));
+    }
+    const r600 = () =>
+        Array.from(repetition.querySelectorAll("li")).find(
+            (item) =>
+                item.querySelector("strong")?.textContent === "Track 600s · R",
+        )!;
+    assert.match(r600().textContent, /4–6 × 600 m/);
+    assert.match(r600().textContent, /1:57 per repeat/);
+    change("vdot-input", "50");
+    assert.match(r600().textContent, /2:10.*2-minute R limit/);
+    assert.doesNotMatch(r600().textContent, /4–6 × 600 m/);
+    click(get("training-interval-toggle"));
+    const intervals = get("training-interval-workouts");
+    for (const name of [
+        "Track 400s",
+        "Track 600s",
+        "Track 800s",
+        "Kilometer intervals",
+    ]) {
+        assert.ok(intervals.textContent.includes(name));
+    }
+    assert.match(intervals.textContent, /3:50 per repeat/);
+    click(get("training-easy-run-toggle"));
+    assert.match(get("training-easy-run-workouts").textContent, /24–32 km/);
+    assert.match(get("training-easy-run-workouts").textContent, /strides/);
+});
