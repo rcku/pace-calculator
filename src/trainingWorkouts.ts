@@ -166,7 +166,13 @@ export function workoutTiming(
     if (type === "Interval" && (seconds < 60 || seconds > 300)) {
         return {
             suitable: false,
-            text: `At this VDOT, one repeat takes ${time}, outside the 1–5-minute I range. Use timed 3–5-minute intervals with an easy jog of similar or slightly shorter duration instead.`,
+            text: `At this VDOT, one repeat takes ${time}, outside the 1–5-minute I range. Use timed 3-minute intervals with 2 minutes of easy jogging between efforts instead.`,
+        };
+    }
+    if (type === "Interval") {
+        return {
+            suitable: true,
+            text: `${time} per repeat at the pace above. Recovery: ${paceText(seconds * 0.75)}–${time} of easy jogging between repeats.`,
         };
     }
     return { suitable: true, text: `${time} per repeat at the pace above.` };

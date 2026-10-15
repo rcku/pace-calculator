@@ -224,6 +224,7 @@ test("marathon examples show distance options, strides, and fitness-specific rep
         assert.ok(intervals.textContent.includes(name));
     }
     assert.match(intervals.textContent, /3:50 per repeat/);
+    assert.match(intervals.textContent, /Recovery: 2:53–3:50 of easy jogging/);
     click(get("training-easy-run-toggle"));
     assert.match(get("training-easy-run-workouts").textContent, /24–32 km/);
     assert.match(get("training-easy-run-workouts").textContent, /strides/);

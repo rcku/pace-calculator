@@ -50,3 +50,18 @@ test("repeat-duration limits include their endpoints without using rounded split
     assert.equal(workoutTiming("Repetition", session, 120)?.suitable, true);
     assert.equal(workoutTiming("Repetition", session, 120.1)?.suitable, false);
 });
+
+test("Interval recoveries show explicit times and update with VDOT", () => {
+    assert.match(
+        timing("Interval", "Kilometer intervals · I", 56.5)!.text,
+        /Recovery: 2:36–3:28 of easy jogging/,
+    );
+    assert.match(
+        timing("Interval", "Kilometer intervals · I", 50)!.text,
+        /Recovery: 2:53–3:50 of easy jogging/,
+    );
+    assert.match(
+        timing("Interval", "Kilometer intervals · I", 25)!.text,
+        /3-minute intervals with 2 minutes of easy jogging/,
+    );
+});
