@@ -29,7 +29,16 @@ header {
     margin-left: -8px;
 }
 
+.icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    vertical-align: -0.125em;
+}
+
 .mark {
+    flex-shrink: 0;
     display: inline-grid;
     place-items: center;
     background: var(--active-bg);
@@ -109,6 +118,9 @@ footer {
 }
 
 .chart-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
     color: var(--ink);
     font-size: 12px;
     text-underline-offset: 3px;
@@ -127,6 +139,10 @@ footer {
 }
 
 .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     padding: 7px 10px;
     border: 1px solid var(--line);
     border-radius: 7px;
@@ -135,6 +151,11 @@ footer {
     font-size: 12px;
     white-space: nowrap;
     cursor: pointer;
+}
+
+.theme-toggle .icon {
+    width: 20px;
+    height: 20px;
 }
 
 :root[data-theme="dark"] .kicker {

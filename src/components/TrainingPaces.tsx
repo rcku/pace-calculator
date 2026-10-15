@@ -1,3 +1,4 @@
+import { Icon } from "./Icon.tsx";
 import { useState } from "preact/hooks";
 import { trainingPaces, paceText, type TrainingPace } from "../calculations.ts";
 import { MILE_KM } from "../distances.ts";
@@ -126,7 +127,8 @@ function TrainingRow({ row }: { row: TrainingPace }) {
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            Training guidance · V.O2 ↗
+                            Training guidance · V.O2{" "}
+                            <Icon name="arrow-up-right" />
                         </a>
                     </div>
                 </td>

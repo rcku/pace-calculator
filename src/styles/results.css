@@ -404,6 +404,7 @@
 }
 
 .training-workouts a {
+    gap: 4px;
     display: inline-flex;
     align-items: center;
     min-height: 44px;

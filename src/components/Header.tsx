@@ -1,3 +1,4 @@
+import { Icon } from "./Icon.tsx";
 import type { Theme } from "../theme.ts";
 import { ThemeToggle } from "./ThemeToggle.tsx";
 
@@ -17,9 +18,13 @@ export function Header({
                 class="chart-link"
                 href={conversion ? "#" : "#pace-conversion"}
             >
-                {conversion
-                    ? "← Back to calculator"
-                    : "Pace conversion chart ↗"}
+                {conversion && <Icon name="arrow-left" />}
+                <span>
+                    {conversion
+                        ? "Back to calculator"
+                        : "Pace conversion chart"}
+                </span>
+                {!conversion && <Icon name="arrow-up-right" />}
             </a>
             <ThemeToggle theme={theme} onToggle={onToggleTheme} />
         </div>
@@ -27,7 +32,10 @@ export function Header({
     return (
         <header>
             <a class="brand" href="#" aria-label="Stride home">
-                <span class="mark">↗</span> stride
+                <span class="mark">
+                    <Icon name="arrow-up-right" />
+                </span>{" "}
+                stride
                 <span class="brand-dot">.</span>
             </a>
             {conversion ? (

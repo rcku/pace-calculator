@@ -1,3 +1,4 @@
+import { Icon } from "./Icon.tsx";
 import type { Theme } from "../theme.ts";
 
 export function ThemeToggle({
@@ -16,7 +17,7 @@ export function ThemeToggle({
             aria-pressed={dark}
             onClick={onToggle}
         >
-            <span aria-hidden="true">{dark ? "☀" : "☾"}</span>{" "}
+            <Icon name={dark ? "sun" : "moon"} />
             <span class="theme-toggle-label">
                 {dark ? "Light" : "Dark"} mode
             </span>
