@@ -68,6 +68,14 @@ test("portable HTML works without local scripts or stylesheets", async () => {
         window.dispatchEvent(new window.Event("hashchange"));
         await window.happyDOM.waitUntilComplete();
         assert.equal(window.document.querySelector("#race-results"), null);
+        const footer = window.document.querySelector("footer");
+        assert.ok(footer);
+        assert.ok(
+            footer?.querySelector(
+                'a[href="https://github.com/rcku/pace-calculator"] svg',
+            ),
+        );
+        assert.doesNotMatch(footer.textContent, /Built with OpenAI Codex/);
         assert.equal(
             window.document.querySelectorAll("#pace-conversions tr").length,
             51,

@@ -1,3 +1,4 @@
+import { GitHubLink } from "./components/GitHubLink.tsx";
 import { useTheme } from "./theme.ts";
 import { Header } from "./components/Header.tsx";
 import { PaceConversionPage } from "./PaceConversionPage.tsx";
@@ -124,9 +125,7 @@ export function App() {
                 </div>
             </section>
             <footer>
-                <span>
-                    Made for the miles ahead. · 🤖 Built with OpenAI Codex
-                </span>
+                <GitHubLink />
                 <span>Finish times rounded to the nearest second.</span>
             </footer>
         </main>

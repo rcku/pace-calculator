@@ -1,3 +1,4 @@
+import { GitHubLink } from "./components/GitHubLink.tsx";
 import type { Theme } from "./theme.ts";
 import { Header } from "./components/Header.tsx";
 import { type Unit } from "./distances.ts";
@@ -69,7 +70,7 @@ export function PaceConversionPage({
                 </div>
             </section>
             <footer>
-                <span>🤖 Built with OpenAI Codex</span>
+                <GitHubLink />
                 <a class="chart-link" href="#">
                     Back to calculator
                 </a>
