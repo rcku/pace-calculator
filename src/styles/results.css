@@ -329,10 +329,11 @@
 }
 
 .training-toggle {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
+    gap: 4px 6px;
     width: 100%;
     min-height: 44px;
     border: 0;
@@ -345,11 +346,23 @@
 }
 
 .training-toggle-label {
-    min-width: 0;
+    display: contents;
+}
+
+.training-toggle-label > span {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.training-toggle-label small {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 0;
 }
 
 .training-chevron {
-    flex-shrink: 0;
+    grid-column: 2;
+    grid-row: 1;
     color: var(--muted);
     font-size: 18px;
     font-weight: 400;
