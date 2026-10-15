@@ -46,7 +46,7 @@ dist/                    Generated production files; ignored by Git
 | `npm run test:build` | Verify the production bundle and compressed assets after a build                      |
 | `npm run check`      | Check formatting, run tests, type-check, build, and verify production/portable output |
 | `npm run format`     | Format source, configuration, tests, and documentation                                |
-| `npm run export`     | Build and export a portable HTML file into `../outputs/`                              |
+| `npm run export`     | Build a portable HTML file at `portable/index.html`                                   |
 
 Preact is the only runtime npm dependency. TypeScript checks the application in strict mode; Vite transpiles TS/TSX and bundles Preact into the static website. Vite, its minification/compression/single-file plugins, cpy-cli, Prettier, and Happy DOM are development-only tools. Versions are recorded in `package-lock.json` for reproducible installation.
 
@@ -59,9 +59,9 @@ All tools are installed by `npm ci` from `package.json`; there are no custom scr
 - **vite-plugin-minify:** HTML minification.
 - **vite-plugin-compression2:** gzip and Brotli sidecars.
 - **vite-plugin-singlefile:** portable HTML with JavaScript and CSS inlined.
-- **cpy-cli:** copy the license and portable export to their destinations.
+- **cpy-cli:** copy the license into the production output.
 
-The portable build is generated in `portable/index.html`, then copied into `../outputs/running-pace-calculator.html`. It requires no local JavaScript/CSS files or server. Google Fonts are optional external resources; offline use falls back to system fonts.
+The portable build is generated in `portable/index.html` inside the repository. Copy this file wherever you need it after building; the project commands do not write outside the checkout. It requires no local JavaScript/CSS files or server. Google Fonts are optional external resources; offline use falls back to system fonts.
 
 See [deployment](deployment.md) for publishing and [contributing](contributing.md) for pull requests.
 
