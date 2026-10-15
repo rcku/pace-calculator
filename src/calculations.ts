@@ -50,8 +50,20 @@ export function secondsPerKmAtOxygenCost(cost: number) {
         (0.182258 + Math.sqrt(0.182258 ** 2 + 4 * 0.000104 * (cost + 4.6)));
     return 60000 / velocity;
 }
+export type TrainingType =
+    | "Easy run"
+    | "Marathon"
+    | "Threshold"
+    | "Interval"
+    | "Repetition";
+export type TrainingPace = {
+    name: TrainingType;
+    description: string;
+    paces: number[];
+};
+
 // Convert VDOT to approximate training intensities; Easy returns a range.
-export function trainingPaces(score: number) {
+export function trainingPaces(score: number): TrainingPace[] {
     return [
         {
             name: "Easy run",

@@ -327,3 +327,77 @@
         padding: 16px;
     }
 }
+
+.training-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    min-height: 44px;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.training-toggle-label {
+    min-width: 0;
+}
+
+.training-chevron {
+    flex-shrink: 0;
+    color: var(--muted);
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.training-toggle[aria-expanded="true"] .training-chevron {
+    color: var(--ink);
+}
+
+.training-table .training-workouts {
+    padding: 16px;
+    background: var(--controls);
+    color: var(--ink);
+    font:
+        13px/1.6 "DM Sans",
+        sans-serif;
+    white-space: normal;
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+.training-workouts h3 {
+    margin: 0 0 8px;
+    font-size: 14px;
+}
+
+.training-workouts p {
+    margin: 0 0 12px;
+    color: var(--muted);
+}
+
+.training-workouts ul {
+    margin: 0 0 12px;
+    padding-left: 18px;
+}
+
+.training-workouts li + li {
+    margin-top: 10px;
+}
+
+.training-workouts li span {
+    display: block;
+}
+
+.training-workouts a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--ink);
+    text-underline-offset: 3px;
+}

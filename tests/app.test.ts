@@ -76,7 +76,8 @@ test("target finish changes synchronize equivalent race and training VDOT", () =
         4,
     );
     assert.equal(
-        window.document.querySelectorAll("#training-rows tr").length,
+        window.document.querySelectorAll("#training-rows .training-pace-row")
+            .length,
         5,
     );
     assert.match(get("vdot-race-list").textContent, /\/ km/);
@@ -150,4 +151,42 @@ test("theme preference persists across calculator and conversion views", async (
     assert.equal(window.localStorage.getItem("stride-theme"), "dark");
     const { readTheme } = await import("../src/theme.ts");
     assert.equal(readTheme(), "dark");
+});
+
+test("training workout sections expand independently and keep pace updates", () => {
+    const { get, click, change } = app;
+    click(get("vdot-tab"));
+    const examples = [
+        ["easy-run", "Recovery run"],
+        ["marathon", "Marathon blocks"],
+        ["threshold", "Cruise intervals"],
+        ["interval", "Three-minute intervals"],
+        ["repetition", "Track 200s"],
+    ];
+    for (const [type, example] of examples) {
+        const toggle = get(`training-${type}-toggle`);
+        const workouts = get(`training-${type}-workouts`);
+        assert.equal(toggle.getAttribute("aria-expanded"), "false");
+        assert.equal(toggle.getAttribute("aria-controls"), workouts.id);
+        assert.equal(workouts.closest("tr")?.hasAttribute("hidden"), true);
+        click(toggle);
+        assert.equal(toggle.getAttribute("aria-expanded"), "true");
+        assert.equal(workouts.closest("tr")?.hasAttribute("hidden"), false);
+        assert.match(workouts.textContent, new RegExp(example));
+    }
+    const before = get("training-rows").textContent;
+    change("vdot-input", "50");
+    assert.notEqual(get("training-rows").textContent, before);
+    for (const [type] of examples) {
+        const toggle = get(`training-${type}-toggle`);
+        assert.equal(toggle.getAttribute("aria-expanded"), "true");
+        click(toggle);
+        assert.equal(toggle.getAttribute("aria-expanded"), "false");
+        assert.equal(
+            get(`training-${type}-workouts`)
+                .closest("tr")
+                ?.hasAttribute("hidden"),
+            true,
+        );
+    }
 });

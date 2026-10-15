@@ -62,7 +62,9 @@ test("production HTML and bundle initialize without source imports", async () =>
         tab.click();
         await window.happyDOM.waitUntilComplete();
         assert.equal(
-            window.document.querySelectorAll("#training-rows tr").length,
+            window.document.querySelectorAll(
+                "#training-rows .training-pace-row",
+            ).length,
             5,
         );
         const footer = window.document.querySelector("footer");

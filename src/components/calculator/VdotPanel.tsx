@@ -1,8 +1,9 @@
+import { TrainingPaces } from "../TrainingPaces.tsx";
 import { equivalentFinishTime } from "../../calculations.ts";
 import { equivalentRaces } from "../../distances.ts";
 import type { Mode } from "../../model.ts";
 import { PanelHeading } from "../Inputs.tsx";
-import { RaceTable, ResultsHeading, TrainingPaces } from "../Results.tsx";
+import { RaceTable, ResultsHeading } from "../Results.tsx";
 
 export function VdotPanel({
     mode,

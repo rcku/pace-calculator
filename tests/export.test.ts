@@ -46,9 +46,24 @@ test("portable HTML works without local scripts or stylesheets", async () => {
         vdotTab.click();
         await window.happyDOM.waitUntilComplete();
         assert.equal(
-            window.document.querySelectorAll("#training-rows tr").length,
+            window.document.querySelectorAll(
+                "#training-rows .training-pace-row",
+            ).length,
             5,
         );
+        const thresholdToggle = window.document.getElementById(
+            "training-threshold-toggle",
+        );
+        assert.ok(thresholdToggle instanceof window.HTMLElement);
+        thresholdToggle.click();
+        await window.happyDOM.waitUntilComplete();
+        assert.equal(thresholdToggle.getAttribute("aria-expanded"), "true");
+        const workouts = window.document.getElementById(
+            "training-threshold-workouts",
+        );
+        assert.ok(workouts);
+        assert.equal(workouts.closest("tr")?.hasAttribute("hidden"), false);
+        assert.match(workouts.textContent, /Cruise intervals/);
         window.location.hash = "#pace-conversion";
         window.dispatchEvent(new window.Event("hashchange"));
         await window.happyDOM.waitUntilComplete();
