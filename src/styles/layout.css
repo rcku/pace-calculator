@@ -1,0 +1,235 @@
+main {
+    max-width: 1160px;
+    margin: auto;
+    padding: 0 48px;
+}
+
+header {
+    height: 102px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+}
+
+.brand {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: var(--ink);
+    font:
+        800 30px Manrope,
+        sans-serif;
+    text-decoration: none;
+    letter-spacing: -1.5px;
+}
+
+.brand-dot {
+    color: #779d42;
+    margin-left: -8px;
+}
+
+.mark {
+    display: inline-grid;
+    place-items: center;
+    background: var(--active-bg);
+    color: var(--green);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 24px;
+    letter-spacing: 0;
+}
+
+.eyebrow,
+.kicker,
+.step {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.7px;
+}
+
+.eyebrow {
+    color: var(--muted);
+}
+
+.intro {
+    padding: 46px 0 35px;
+}
+
+.kicker {
+    color: #65814e;
+}
+
+h1 {
+    font:
+        800 53px/1.13 Manrope,
+        sans-serif;
+    letter-spacing: -2.7px;
+    margin: 15px 0 18px;
+}
+
+h1 span {
+    color: var(--heading-accent);
+}
+
+.intro p {
+    line-height: 1.7;
+    color: var(--muted);
+    margin: 0;
+}
+
+.step {
+    color: var(--muted);
+    font-size: 9px;
+}
+
+h2 {
+    font:
+        800 20px/1.35 Manrope,
+        sans-serif;
+    letter-spacing: -0.6px;
+    margin: 11px 0;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    color: var(--muted);
+    font-size: 10px;
+    padding: 25px 0 35px;
+}
+
+.header-tools {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.chart-link {
+    color: var(--ink);
+    font-size: 12px;
+    text-underline-offset: 3px;
+}
+
+:root[data-theme="dark"] .mark {
+    background: #213c30;
+}
+
+.header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
+
+.theme-toggle {
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    color: var(--ink);
+    background: var(--surface);
+    font-size: 12px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+:root[data-theme="dark"] .kicker {
+    color: var(--heading-accent);
+}
+
+@media (max-width: 760px) {
+    main {
+        padding-left: max(16px, env(safe-area-inset-left));
+        padding-right: max(16px, env(safe-area-inset-right));
+    }
+    header {
+        height: auto;
+        min-height: 76px;
+        gap: 12px;
+        padding: 12px 0;
+    }
+    .intro {
+        padding: 22px 0 24px;
+    }
+    h1 {
+        font-size: clamp(32px, 8vw, 42px);
+        letter-spacing: -1.6px;
+        margin: 12px 0;
+    }
+    .intro p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+    .desktop {
+        display: none;
+    }
+    .eyebrow {
+        font-size: 8px;
+        letter-spacing: 1px;
+    }
+    .step {
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
+    .theme-toggle {
+        min-height: 44px;
+        min-width: 44px;
+        font-size: 14px;
+    }
+    .chart-link {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        font-size: 13px;
+    }
+    footer {
+        flex-direction: column;
+        gap: 8px;
+        padding-bottom: max(24px, env(safe-area-inset-bottom));
+        font-size: 11px;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 520px) {
+    .theme-toggle-label {
+        display: none;
+    }
+    .header-tools .eyebrow {
+        display: none;
+    }
+    .theme-toggle {
+        font-size: 20px;
+        padding: 8px;
+    }
+    .header-tools {
+        max-width: none;
+    }
+    .header-actions {
+        flex-wrap: nowrap;
+        gap: 16px;
+    }
+    .header-actions .chart-link {
+        font-size: 12px;
+    }
+    .brand {
+        font-size: 26px;
+        gap: 6px;
+    }
+    .brand .mark {
+        width: 26px;
+        height: 26px;
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 360px) {
+    .header-actions .chart-link {
+        max-width: 90px;
+        line-height: 1.3;
+    }
+}

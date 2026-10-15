@@ -1,0 +1,329 @@
+.table-head {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.7px;
+}
+
+.results {
+    padding: 34px 32px 23px;
+}
+
+.result-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.result-heading h2 {
+    margin-bottom: 24px;
+}
+
+.badge {
+    color: #213c30;
+    background: var(--green);
+    padding: 8px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.table-head {
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 9px;
+    padding: 10px 12px 13px;
+    border-bottom: 1px solid var(--line);
+}
+
+.race-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 12px;
+    border-bottom: 1px solid var(--soft-line);
+    font-size: 13px;
+}
+
+.race-row:last-child {
+    border-bottom: 0;
+}
+
+.race-row.featured {
+    background: var(--featured);
+    border-radius: 7px;
+    border-bottom-color: transparent;
+}
+
+.race-name {
+    font-weight: 500;
+}
+
+.race-name small {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 3px;
+}
+
+.race-time {
+    font:
+        700 16px Manrope,
+        sans-serif;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.2px;
+}
+
+.target-big {
+    font:
+        800 70px Manrope,
+        sans-serif;
+    letter-spacing: -3px;
+    margin: 55px 0 10px;
+}
+
+.target-big span {
+    display: block;
+    font:
+        500 16px "DM Sans",
+        sans-serif;
+    letter-spacing: 0;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.equivalent {
+    padding: 18px;
+    background: var(--highlight);
+    border-radius: 10px;
+    color: var(--highlight-ink);
+    font-size: 14px;
+}
+
+.target-detail {
+    border-top: 1px solid var(--line);
+    margin-top: 40px;
+    padding-top: 22px;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.target-note {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 25px;
+}
+
+.vdot-card {
+    margin-top: 18px;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+}
+
+.vdot-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.vdot-heading strong {
+    font:
+        800 30px Manrope,
+        sans-serif;
+    font-variant-numeric: tabular-nums;
+}
+
+.vdot-card p {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.vdot-card + .target-detail {
+    margin-top: 22px;
+}
+
+.race-performance {
+    text-align: right;
+    margin-left: 12px;
+}
+
+.race-performance small {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 5px;
+    white-space: nowrap;
+}
+
+.training-section {
+    border-top: 1px solid var(--line);
+    padding-top: 25px;
+    margin-top: 28px;
+}
+
+.training-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.training-table thead th {
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    padding: 10px 4px;
+    border-bottom: 1px solid var(--line);
+}
+
+.training-table tbody th,
+.training-table td {
+    padding: 14px 4px;
+    border-bottom: 1px solid var(--soft-line);
+}
+
+.training-table tbody th {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.training-table th small {
+    display: block;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.training-table td {
+    font:
+        600 12px Manrope,
+        sans-serif;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.training-table th:not(:first-child),
+.training-table td {
+    text-align: right;
+}
+
+.training-method {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.training-method summary {
+    cursor: pointer;
+}
+
+.training-method a {
+    color: var(--ink);
+}
+
+.training-table-wrap {
+    overflow-x: auto;
+}
+
+@media (max-width: 760px) {
+    .results {
+        border-top: 1px solid var(--line);
+    }
+    .results {
+        padding: 20px;
+        min-width: 0;
+    }
+    .target-big {
+        font-size: 56px;
+        margin-top: 22px;
+    }
+    .result-heading {
+        flex-wrap: wrap;
+    }
+    .result-heading > div {
+        flex: 1;
+        min-width: 150px;
+    }
+    .result-heading h2 {
+        margin-bottom: 16px;
+    }
+    .badge {
+        font-size: 12px;
+    }
+    .race-row {
+        padding: 14px 10px;
+        gap: 10px;
+        font-size: 14px;
+    }
+    .race-name {
+        min-width: 0;
+    }
+    .race-name small {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+    .race-time {
+        font-size: 18px;
+        white-space: nowrap;
+    }
+    .race-performance {
+        margin-left: 0;
+        flex-shrink: 0;
+    }
+    .race-performance small {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        font-size: 12px;
+        white-space: normal;
+    }
+    .pace-separator {
+        display: none;
+    }
+    .training-table {
+        table-layout: fixed;
+    }
+    .training-table th:first-child {
+        width: 40%;
+    }
+    .training-table tbody th {
+        font-size: 13px;
+        overflow-wrap: anywhere;
+    }
+    .training-table th small {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+    .training-table td {
+        font-size: 13px;
+    }
+    .training-table td > span {
+        display: block;
+    }
+    .pace-value {
+        display: inline;
+    }
+    .range-separator {
+        display: inline;
+    }
+    .training-method summary {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 360px) {
+    .results {
+        padding: 16px;
+    }
+}

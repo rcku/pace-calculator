@@ -24,7 +24,8 @@ src/                     Readable application source
   model.ts               Typed input validation and unit conversions
   calculations.ts        Pure pace and VDOT calculations
   distances.ts           Typed shared distance definitions
-  style.css              Responsive styles
+  style.css              Stylesheet entry point
+  styles/                Theme tokens, layout, controls, results, and conversion styles
 docs/                    Development, deployment, calculations, and contribution guides
 public/                  Static files copied by Vite
 vite.config.js           Vite and plugin configuration
@@ -67,4 +68,4 @@ See [deployment](deployment.md) for publishing and [contributing](contributing.m
 
 ## Theme preference
 
-The theme toggle is available on the calculator and pace-conversion view. A saved `stride-theme` preference in browser local storage takes precedence over the device theme at startup. If storage is unavailable, theme switching still works for the current session. Colors are defined as shared CSS variables in `src/style.css`.
+The theme toggle is available on the calculator and pace-conversion view. A saved `stride-theme` preference in browser local storage takes precedence over the device theme at startup. If storage is unavailable, theme switching still works for the current session. Colors are defined as shared CSS variables in `src/styles/tokens.css`. Each stylesheet keeps its responsive rules alongside its base rules.

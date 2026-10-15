@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap");
+:root {
+    color-scheme: light;
+    --page: #f5f6f0;
+    --surface: #ffffff;
+    --controls: #edf0e6;
+    --tabs: #dde4d5;
+    --control-bg: #e6ebdf;
+    --input-bg: #f8faf5;
+    --input-border: #d6dece;
+    --soft-line: #edf0e9;
+    --featured: #f1f6e8;
+    --current: #eef5df;
+    --highlight: #e8f5d2;
+    --highlight-ink: #526640;
+    --heading-accent: #849c72;
+    --active-bg: #213c30;
+    --active-ink: #ffffff;
+    --error: #a13b29;
+
+    --ink: #213c30;
+    --muted: #728078;
+    --green: #c9f173;
+    --line: #dce2d9;
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --ink: #e3eee5;
+    --muted: #b1c3b6;
+    --line: #3a5043;
+    --page: #111c17;
+    --surface: #19271f;
+    --controls: #203028;
+    --tabs: #2c4033;
+    --control-bg: #293c30;
+    --input-bg: #15231b;
+    --input-border: #48634f;
+    --soft-line: #314837;
+    --featured: #243829;
+    --current: #304731;
+    --highlight: #2c4027;
+    --highlight-ink: #d2eac0;
+    --heading-accent: #abc98e;
+    --active-bg: #c9f173;
+    --active-ink: #213c30;
+    --error: #ffb5a3;
+}

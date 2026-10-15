@@ -1,0 +1,73 @@
+.pace-conversion-table tr.current {
+    background: var(--current);
+}
+
+.pace-conversion-table th,
+.pace-conversion-table td {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.conversion-page {
+    max-width: 760px;
+}
+
+.conversion-tool {
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.conversion-chart {
+    padding: 24px 32px;
+    background: var(--surface);
+}
+
+.conversion-chart .training-section {
+    border-top: 0;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.pace-chart-scroll:focus-visible {
+    outline: 3px solid #7ca754;
+    outline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+    .conversion-tool {
+        border-radius: 16px;
+    }
+    .conversion-chart {
+        padding: 20px;
+        min-width: 0;
+    }
+    .pace-chart-scroll {
+        max-height: 65svh;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+    .pace-conversion-table th:first-child {
+        width: 50%;
+    }
+    .pace-conversion-table thead th {
+        position: sticky;
+        top: 0;
+        background: var(--surface);
+        z-index: 1;
+        padding-top: 14px;
+        padding-bottom: 14px;
+    }
+    .pace-conversion-table tbody th {
+        font-size: 15px;
+    }
+    .pace-conversion-table td {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 360px) {
+    .conversion-chart {
+        padding: 16px;
+    }
+}
