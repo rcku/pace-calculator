@@ -42,20 +42,19 @@ dist/                    Generated production files; ignored by Git
 | `npm run typecheck`  | Check application and test types without emitting files                               |
 | `npm test`           | Run calculation and UI regression tests                                               |
 | `npm run build`      | Compile/bundle JS and minify HTML/CSS; generate gzip/Brotli copies                    |
-| `npm run compile`    | Alias for the production build                                                        |
 | `npm run preview`    | Vite preview of `dist/` after a build                                                 |
 | `npm run test:build` | Verify the production bundle and compressed assets after a build                      |
 | `npm run check`      | Check formatting, run tests, type-check, build, and verify production/portable output |
 | `npm run format`     | Format source, configuration, tests, and documentation                                |
 | `npm run export`     | Build a portable HTML file at `portable/index.html`                                   |
 
-Preact is the only runtime npm dependency. TypeScript checks the application in strict mode with browser types (`tsconfig.json`), and tests/build configuration with Node types (`tsconfig.node.json`); Vite transpiles TS/TSX and bundles Preact into the static website. Vite, its minification/compression/single-file plugins, cpy-cli, Prettier, and Happy DOM are development-only tools. Versions are recorded in `package-lock.json` for reproducible installation.
+Preact is the only runtime npm dependency. One `tsconfig.json` checks application, test, and Vite configuration code in strict mode with browser and Node types; Vite transpiles TS/TSX and bundles Preact into the static website. Vite, its minification/compression/single-file plugins, cpy-cli, Prettier, and Happy DOM are development-only tools. Versions are recorded in `package-lock.json` for reproducible installation.
 
 ## Build tools
 
 All tools are installed by `npm ci` from `package.json`; there are no custom scripts to maintain:
 
-- **Preact + TypeScript:** typed components and shared state, checked with `tsc --noEmit`.
+- **Preact + TypeScript:** typed components and shared state, checked with `tsc` (`noEmit` is set in the configuration).
 - **Vite + @preact/preset-vite:** development server, production JS/CSS bundling and minification, and preview.
 - **vite-plugin-minify:** HTML minification.
 - **vite-plugin-compression2:** gzip and Brotli sidecars.
@@ -73,3 +72,7 @@ The theme toggle is available on the calculator and pace-conversion view. A save
 ## Test organization
 
 `tests/calculations.test.ts` covers the pure formulas. `tests/workouts.test.ts` checks VDOT-based repeat durations and intensity limits. `tests/app.test.ts` uses a fresh mounted application for each interaction scenario, with setup and cleanup in `tests/helpers/app.ts`. Build tests discover generated assets and verify each compressed copy; they do not assume a fixed number of bundles. Portable-output tests verify the standalone HTML.
+
+## Formatting
+
+Prettier reads four-space indentation and LF line endings from `.editorconfig`. `npm run format` and `npm run format:check` scan the repository; `.prettierignore` excludes generated output and the lockfile. There is no separate Prettier configuration.
