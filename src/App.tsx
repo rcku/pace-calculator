@@ -34,7 +34,7 @@ export function App() {
     const [unit, setUnit] = useState<Unit>("km");
     const [pace, setPace] = useState(initialPace);
     const [finish, setFinish] = useState(initialFinish);
-    const [vdot, setVdot] = useState("35.8");
+    const [vdot, setVdot] = useState(() => timeResult(initialFinish).score);
     const paceCalculation = calculate(() => paceResult(pace, unit));
     const timeCalculation = calculate(() => timeResult(finish));
     const vdotCalculation = calculate(() => vdotScore(vdot));

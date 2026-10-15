@@ -40,7 +40,7 @@ test("portable HTML works without local scripts or stylesheets", async () => {
         await window.happyDOM.waitUntilComplete();
         const target = window.document.getElementById("target-vdot");
         assert.ok(target);
-        assert.equal(target.textContent, "35.8");
+        assert.equal(target.textContent, "56.5");
         const vdotTab = window.document.getElementById("vdot-tab");
         assert.ok(vdotTab instanceof window.HTMLElement);
         vdotTab.click();

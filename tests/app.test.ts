@@ -11,12 +11,14 @@ afterEach(async () => {
 });
 
 test("pace results update across units and distances", () => {
-    const { window, get, click, change } = app;
+    const { window, get, input, click, change } = app;
     assert.equal(
         window.document.querySelectorAll("#race-list .race-row").length,
         18,
     );
-    assert.match(get("race-list").textContent, /0:50:00/);
+    assert.equal(input("pace-min").value, "4");
+    assert.equal(input("pace-sec").value, "5");
+    assert.match(get("race-list").textContent, /0:40:50/);
     click(window.document.querySelector('#pace-panel [data-unit="mi"]'));
     assert.match(get("pace-badge").textContent, /\/ mile/);
     change("pace-min", "8");
@@ -59,6 +61,12 @@ test("invalid pace, finish time, and VDOT show errors and clear results", () => 
 test("target finish changes synchronize equivalent race and training VDOT", () => {
     const { window, get, input, click, change } = app;
     click(get("time-tab"));
+    assert.equal(input("distance").value, "42.195");
+    assert.equal(input("hours").value, "2");
+    assert.equal(input("minutes").value, "52");
+    assert.equal(get("target-vdot").textContent, "56.5");
+    change("distance", "10");
+    change("hours", "0");
     change("minutes", "50");
     assert.equal(input("vdot-input").value, "40.0");
     assert.equal(get("target-vdot").textContent, "40.0");
@@ -84,6 +92,7 @@ test("custom distances accept miles", () => {
     change("distance", "custom");
     change("custom-distance", "5");
     change("distance-unit", "mi");
+    change("hours", "0");
     change("minutes", "40");
     assert.match(get("equivalent").textContent, /8:00 min \/ mile/);
     assert.match(get("target-detail").textContent, /5 miles/);
@@ -106,16 +115,16 @@ test("conversion navigation preserves pace and highlights only valid input", () 
         window.document.querySelectorAll("#pace-conversions tr").length,
         51,
     );
-    assert.match(currentRows()[0].textContent, /5:00Your pace8:03/);
+    assert.match(currentRows()[0].textContent, /4:05Your pace6:34/);
     change("pace-sec", "15");
     assert.equal(currentRows().length, 1);
-    assert.match(currentRows()[0].textContent, /5:15Your pace8:27/);
+    assert.match(currentRows()[0].textContent, /4:15Your pace6:50/);
     change("pace-sec", "60");
     assert.equal(currentRows().length, 0);
     change("pace-sec", "30");
     navigate("");
     assert.equal(window.document.querySelector("#pace-conversions"), null);
-    assert.match(get("pace-badge").textContent, /5:30/);
+    assert.match(get("pace-badge").textContent, /4:30/);
     click(window.document.querySelector('#pace-panel [data-unit="mi"]'));
     change("pace-min", "8");
     change("pace-sec", "0");
