@@ -69,3 +69,7 @@ See [deployment](deployment.md) for publishing and [contributing](contributing.m
 ## Theme preference
 
 The theme toggle is available on the calculator and pace-conversion view. A saved `stride-theme` preference in browser local storage takes precedence over the device theme at startup. If storage is unavailable, theme switching still works for the current session. Colors are defined as shared CSS variables in `src/styles/tokens.css`. Each stylesheet keeps its responsive rules alongside its base rules.
+
+## Test organization
+
+`tests/calculations.test.ts` covers the pure formulas. `tests/app.test.ts` uses a fresh mounted application for each interaction scenario, with setup and cleanup in `tests/helpers/app.ts`. Build tests discover generated assets and verify each compressed copy; they do not assume a fixed number of bundles. Portable-output tests verify the standalone HTML.

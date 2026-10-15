@@ -8,7 +8,12 @@ test("compressed assets reproduce the built files exactly", async () => {
     const files = (
         await readdir(new URL("../dist/", import.meta.url), { recursive: true })
     ).filter((name) => /\.(html|js|css)$/.test(name));
-    assert.equal(files.length, 3);
+    for (const extension of ["html", "js", "css"]) {
+        assert.ok(
+            files.some((name) => name.endsWith(`.${extension}`)),
+            `Missing ${extension} assets`,
+        );
+    }
     for (const name of files) {
         const url = new URL(`../dist/${name}`, import.meta.url),
             bytes = await readFile(url);
