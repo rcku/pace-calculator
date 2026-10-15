@@ -32,12 +32,14 @@ export function VdotPanel({
             <input
                 id="vdot-input"
                 class="vdot-input"
-                type="number"
-                min="0.1"
-                step="0.1"
+                type="text"
                 inputMode="decimal"
                 value={vdot}
-                onInput={(event) => onVdotChange(event.currentTarget.value)}
+                onInput={(event) => {
+                    const input = event.currentTarget;
+                    input.value = input.value.replace(/,/g, ".");
+                    onVdotChange(input.value);
+                }}
             />
             <p class="target-note">
                 Use your current score or explore a target VDOT.

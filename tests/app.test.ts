@@ -87,6 +87,25 @@ test("target finish changes synchronize equivalent race and training VDOT", () =
     assert.equal(input("vdot-input").value, "40.0");
 });
 
+test("VDOT displays a dot and accepts a comma from decimal keyboards", () => {
+    const { get, input, click, change } = app;
+    click(get("vdot-tab"));
+    assert.equal(input("vdot-input").type, "text");
+    assert.equal(input("vdot-input").getAttribute("inputmode"), "decimal");
+    assert.equal(input("vdot-input").value, "56.5");
+    for (const value of ["56,5", "45,2", "45.2"]) {
+        change("vdot-input", value);
+        const expected = value.replace(",", ".");
+        assert.equal(input("vdot-input").value, expected);
+        assert.equal(get("vdot-badge").textContent, `VDOT ${expected}`);
+        assert.equal(get("error").hidden, true);
+    }
+    change("vdot-input", "invalid");
+    assert.equal(get("error").hidden, false);
+    change("vdot-input", "0");
+    assert.equal(get("error").hidden, false);
+});
+
 test("custom distances accept miles", () => {
     const { get, click, change } = app;
     click(get("time-tab"));
