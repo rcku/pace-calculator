@@ -71,7 +71,7 @@ test("production HTML and bundle initialize without source imports", async () =>
         assert.ok(footer);
         assert.doesNotMatch(footer.textContent, /Built with OpenAI Codex/);
         const repository = footer.querySelector(
-            'a[href="https://github.com/rcku/pace-calculator"]',
+            'a[href="https://github.com/rcku/stride"]',
         );
         assert.ok(repository?.querySelector("svg"));
     } finally {

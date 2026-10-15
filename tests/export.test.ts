@@ -72,7 +72,7 @@ test("portable HTML works without local scripts or stylesheets", async () => {
         assert.ok(footer);
         assert.ok(
             footer?.querySelector(
-                'a[href="https://github.com/rcku/pace-calculator"] svg',
+                'a[href="https://github.com/rcku/stride"] svg',
             ),
         );
         assert.doesNotMatch(footer.textContent, /Built with OpenAI Codex/);

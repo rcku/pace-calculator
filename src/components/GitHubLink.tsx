@@ -27,7 +27,7 @@ export function GitHubLink() {
     return (
         <a
             class="github-link"
-            href="https://github.com/rcku/pace-calculator"
+            href="https://github.com/rcku/stride"
             target="_blank"
             rel="noopener noreferrer"
         >

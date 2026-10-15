@@ -2,7 +2,7 @@
 
 🤖 Built with OpenAI Codex
 
-[Open the calculator](https://rcku.github.io/pace-calculator/)
+[Open the calculator](https://rcku.github.io/stride/)
 
 Calculate finish times from pace, find pace from a target time, or explore equivalent race times and training paces from VDOT. Supports kilometers, miles, and custom distances.
 
