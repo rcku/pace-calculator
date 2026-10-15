@@ -154,10 +154,16 @@ test("conversion navigation preserves pace and highlights only valid input", () 
 test("theme preference persists across calculator and conversion views", async () => {
     const { window, click, navigate } = app;
     const themeButton = () => window.document.querySelector(".theme-toggle");
+    const themeColor = () =>
+        window.document
+            .querySelector('meta[name="theme-color"]')
+            ?.getAttribute("content");
+    assert.equal(themeColor(), "#111c17");
     assert.equal(window.document.documentElement.dataset.theme, "dark");
     click(themeButton());
     assert.equal(window.document.documentElement.dataset.theme, "light");
     assert.equal(window.localStorage.getItem("stride-theme"), "light");
+    assert.equal(themeColor(), "#f5f6f0");
     assert.equal(
         themeButton()?.getAttribute("aria-label"),
         "Switch to dark mode",
@@ -167,6 +173,7 @@ test("theme preference persists across calculator and conversion views", async (
     click(themeButton());
     assert.equal(window.document.documentElement.dataset.theme, "dark");
     assert.equal(window.localStorage.getItem("stride-theme"), "dark");
+    assert.equal(themeColor(), "#111c17");
     const { readTheme } = await import("../src/theme.ts");
     assert.equal(readTheme(), "dark");
 });
