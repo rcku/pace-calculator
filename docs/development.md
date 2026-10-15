@@ -19,8 +19,8 @@ Open `http://127.0.0.1:5173`. Edit files in `src/`; Vite automatically refreshes
 src/                     Readable application source
   index.html             Page metadata and application mount point
   main.tsx               Preact entry point
-  App.tsx                Shared state and three calculator modes
-  components/            Reusable inputs, race tables, and training results
+  App.tsx                Shared state, navigation, and calculator composition
+  components/            Shared header, inputs, results, and calculator panels
   model.ts               Typed input validation and unit conversions
   calculations.ts        Pure pace and VDOT calculations
   distances.ts           Typed shared distance definitions

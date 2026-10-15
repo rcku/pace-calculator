@@ -1,5 +1,5 @@
 import type { Theme } from "./theme.ts";
-import { ThemeToggle } from "./components/ThemeToggle.tsx";
+import { Header } from "./components/Header.tsx";
 import { type Unit } from "./distances.ts";
 import { calculate, paceResult, type PaceInput } from "./model.ts";
 import { TimeInputs, UnitSwitch } from "./components/Inputs.tsx";
@@ -24,19 +24,7 @@ export function PaceConversionPage({
     const fields = ["minutes", "seconds"] as const;
     return (
         <main class="conversion-page">
-            <header>
-                <a class="brand" href="#" aria-label="Stride home">
-                    <span class="mark">↗</span> stride
-                    <span class="brand-dot">.</span>
-                </a>
-                <div class="header-actions">
-                    {" "}
-                    <a class="chart-link" href="#">
-                        ← Back to calculator
-                    </a>
-                    <ThemeToggle theme={theme} onToggle={onToggleTheme} />
-                </div>
-            </header>
+            <Header theme={theme} onToggleTheme={onToggleTheme} conversion />
             <section class="intro">
                 <span class="kicker">PACE CONVERSION</span>
                 <h1>
