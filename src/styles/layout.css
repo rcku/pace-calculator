@@ -271,3 +271,10 @@ footer {
     width: 16px;
     height: 16px;
 }
+
+.footer-credit {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}

@@ -125,7 +125,10 @@ export function App() {
                 </div>
             </section>
             <footer>
-                <GitHubLink />
+                <div class="footer-credit">
+                    <span>Made for the miles ahead.</span>
+                    <GitHubLink />
+                </div>
                 <span>Finish times rounded to the nearest second.</span>
             </footer>
         </main>
