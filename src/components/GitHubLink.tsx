@@ -1,6 +1,6 @@
 // GitHub mark from Primer Octicons (MIT):
 // https://github.com/primer/octicons/blob/main/icons/mark-github-16.svg
-// Keep the license in SVG metadata so hosted and portable copies retain it.
+// Keep the license in SVG metadata with every rendered copy.
 const githubIconLicense = `MIT License
 
 Copyright (c) 2026 GitHub Inc.

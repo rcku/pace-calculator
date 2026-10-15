@@ -36,32 +36,31 @@ dist/                    Generated production files; ignored by Git
 
 ## Commands
 
-| Command              | Purpose                                                                               |
-| -------------------- | ------------------------------------------------------------------------------------- |
-| `npm run dev`        | Vite development server with live reload                                              |
-| `npm run typecheck`  | Check application and test types without emitting files                               |
-| `npm test`           | Run calculation and UI regression tests                                               |
-| `npm run build`      | Compile/bundle JS and minify HTML/CSS; generate gzip/Brotli copies                    |
-| `npm run preview`    | Vite preview of `dist/` after a build                                                 |
-| `npm run test:build` | Verify the production bundle and compressed assets after a build                      |
-| `npm run check`      | Check formatting, run tests, type-check, build, and verify production/portable output |
-| `npm run format`     | Format source, configuration, tests, and documentation                                |
-| `npm run export`     | Build a portable HTML file at `portable/index.html`                                   |
+| Command                | Purpose                                                                    |
+| ---------------------- | -------------------------------------------------------------------------- |
+| `npm run dev`          | Start the development server with live reload                              |
+| `npm run typecheck`    | Check application, test, and Vite configuration types                      |
+| `npm test`             | Run calculation, workout, and UI regression tests                          |
+| `npm run build`        | Bundle and minify JavaScript/CSS into `dist/`; copy the license            |
+| `npm run preview`      | Preview `dist/` after a build                                              |
+| `npm run test:build`   | Verify the generated production application                                |
+| `npm run check`        | Check formatting and types, run tests, build, and verify production output |
+| `npm run format`       | Format the repository                                                      |
+| `npm run format:check` | Check formatting without changing files                                    |
 
-Preact is the only runtime npm dependency. One `tsconfig.json` checks application, test, and Vite configuration code in strict mode with browser and Node types; Vite transpiles TS/TSX and bundles Preact into the static website. Vite, its minification/compression/single-file plugins, cpy-cli, Prettier, and Happy DOM are development-only tools. Versions are recorded in `package-lock.json` for reproducible installation.
+Preact is the only runtime npm dependency. One `tsconfig.json` checks application, test, and Vite configuration code in strict mode with browser and Node types. Vite transpiles TS/TSX and bundles Preact into the static website. Versions are recorded in `package-lock.json` for reproducible installation.
 
 ## Build tools
 
-All tools are installed by `npm ci` from `package.json`; there are no custom scripts to maintain:
+All tools are installed by `npm ci` from `package.json`; there are no custom build scripts to maintain:
 
-- **Preact + TypeScript:** typed components and shared state, checked with `tsc` (`noEmit` is set in the configuration).
-- **Vite + @preact/preset-vite:** development server, production JS/CSS bundling and minification, and preview.
-- **vite-plugin-minify:** HTML minification.
-- **vite-plugin-compression2:** gzip and Brotli sidecars.
-- **vite-plugin-singlefile:** portable HTML with JavaScript and CSS inlined.
+- **Preact + TypeScript:** typed components and shared state, checked with `tsc` without emitting files.
+- **Vite + @preact/preset-vite:** development server, production bundling and JavaScript/CSS minification, and preview.
 - **cpy-cli:** copy the license into the production output.
+- **tsx + Happy DOM:** run TypeScript tests and exercise the application in a simulated browser.
+- **Prettier:** consistent source and documentation formatting.
 
-The portable build is generated in `portable/index.html` inside the repository. Copy this file wherever you need it after building; the project commands do not write outside the checkout. It requires no local JavaScript/CSS files or server. Google Fonts are optional external resources; offline use falls back to system fonts.
+`npm run check` runs type checking once before the tests and production build. `npm run build` only generates production files, so use `check` for full verification before publishing. The output contains normal HTML and separate minified assets; there is no standalone HTML export or precompressed sidecar generation.
 
 See [deployment](deployment.md) for publishing and [contributing](contributing.md) for pull requests.
 
@@ -71,7 +70,7 @@ The theme toggle is available on the calculator and pace-conversion view. A save
 
 ## Test organization
 
-`tests/calculations.test.ts` covers the pure formulas. `tests/workouts.test.ts` checks VDOT-based repeat durations and intensity limits. `tests/app.test.ts` uses a fresh mounted application for each interaction scenario, with setup and cleanup in `tests/helpers/app.ts`. Build tests discover generated assets and verify each compressed copy; they do not assume a fixed number of bundles. Portable-output tests verify the standalone HTML.
+`tests/calculations.test.ts` covers the pure formulas. `tests/workouts.test.ts` checks VDOT-based repeat durations and intensity limits. `tests/app.test.ts` uses a fresh mounted application for each interaction scenario, with setup and cleanup in `tests/helpers/app.ts`. `tests/build.test.ts` loads the generated HTML and JavaScript to verify that the production application initializes and its main interactions work.
 
 ## Formatting
 

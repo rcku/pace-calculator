@@ -6,7 +6,7 @@ Constant-pace finish times use exact kilometer/mile conversions. VDOT uses the D
 
 The pace-conversion chart uses 1 mile = 1.609344 km, displays paces every 5 seconds from 2:30 to 6:00 min/km and every 30 seconds from 6:30 to 10:00 min/km, and includes the current pace even when it is outside that range. Both columns round to the nearest second.
 
-Open the chart through the **Pace conversion chart** link in the calculator header, or visit `#pace-conversion` directly. The linked view preserves your pace when you return to the calculator and works in the portable HTML export.
+Open the chart through the **Pace conversion chart** link in the calculator header, or visit `#pace-conversion` directly. The linked view preserves your pace when you return to the calculator.
 
 ## Marathon workout examples
 

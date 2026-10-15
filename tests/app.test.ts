@@ -116,6 +116,24 @@ test("conversion navigation preserves pace and highlights only valid input", () 
         window.document.querySelectorAll("#pace-conversions tr").length,
         51,
     );
+    const chartPaces = Array.from(
+        window.document.querySelectorAll("#pace-conversions tr th"),
+        (cell) => cell.firstChild?.textContent,
+    );
+    for (const pace of [
+        "2:35",
+        "2:40",
+        "3:05",
+        "3:10",
+        "4:20",
+        "5:50",
+        "5:55",
+        "6:00",
+        "6:30",
+        "10:00",
+    ]) {
+        assert.ok(chartPaces.includes(pace), `Missing chart pace ${pace}`);
+    }
     assert.match(currentRows()[0].textContent, /4:05Your pace6:34/);
     change("pace-sec", "15");
     assert.equal(currentRows().length, 1);

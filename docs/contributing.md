@@ -9,7 +9,7 @@
 5. Run `npm run format` and `npm run check` before opening a pull request.
 6. Explain the user-visible change and relevant validation in your PR description.
 
-Use `npm run dev` while developing and `npm run build` followed by `npm run preview` to inspect the production version. The application uses Preact and strict TypeScript. Put reusable UI components in `src/components/`, input validation in `src/model.ts`, and pure formulas in `src/calculations.ts`. Vite handles JSX and TypeScript; `npm run typecheck` catches type errors before production and portable builds.
+Use `npm run dev` while developing and `npm run build` followed by `npm run preview` to inspect the production version. The application uses Preact and strict TypeScript. Put reusable UI components in `src/components/`, input validation in `src/model.ts`, and pure formulas in `src/calculations.ts`. Vite handles JSX and TypeScript; `npm run check` runs type checking once before tests and the production build.
 
 Use four spaces for indentation; `.editorconfig` defines this convention for editors and Prettier.
 

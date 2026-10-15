@@ -1,32 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFile, readdir } from "node:fs/promises";
-import { gunzipSync, brotliDecompressSync } from "node:zlib";
+import { readFile } from "node:fs/promises";
 import { Window } from "happy-dom";
 
-test("compressed assets reproduce the built files exactly", async () => {
-    const files = (
-        await readdir(new URL("../dist/", import.meta.url), { recursive: true })
-    ).filter((name) => /\.(html|js|css)$/.test(name));
-    for (const extension of ["html", "js", "css"]) {
-        assert.ok(
-            files.some((name) => name.endsWith(`.${extension}`)),
-            `Missing ${extension} assets`,
-        );
-    }
-    for (const name of files) {
-        const url = new URL(`../dist/${name}`, import.meta.url),
-            bytes = await readFile(url);
-        assert.deepEqual(
-            gunzipSync(await readFile(new URL(url.href + ".gz"))),
-            bytes,
-        );
-        assert.deepEqual(
-            brotliDecompressSync(await readFile(new URL(url.href + ".br"))),
-            bytes,
-        );
-    }
-});
 test("production HTML and bundle initialize without source imports", async () => {
     const html = await readFile(
         new URL("../dist/index.html", import.meta.url),
