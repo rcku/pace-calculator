@@ -54,3 +54,64 @@ test("production HTML and bundle initialize without source imports", async () =>
         await window.happyDOM.close();
     }
 });
+
+test("Home Screen metadata and icons work under the GitHub Pages subpath", async () => {
+    const html = await readFile(
+        new URL("../dist/index.html", import.meta.url),
+        "utf8",
+    );
+    const window = new Window();
+    try {
+        window.document.write(html);
+        const pageUrl = new URL("https://rcku.github.io/stride/");
+        const manifestHref = window.document
+            .querySelector('link[rel="manifest"]')
+            ?.getAttribute("href");
+        assert.ok(manifestHref);
+        const manifestUrl = new URL(manifestHref, pageUrl);
+        assert.equal(manifestUrl.pathname, "/stride/manifest.webmanifest");
+        const manifest = JSON.parse(
+            await readFile(
+                new URL("../dist/" + manifestHref, import.meta.url),
+                "utf8",
+            ),
+        );
+        for (const member of ["id", "start_url", "scope"]) {
+            assert.equal(
+                new URL(manifest[member], manifestUrl).href,
+                pageUrl.href,
+            );
+        }
+        assert.equal(manifest.display, "standalone");
+        const appleHref = window.document
+            .querySelector('link[rel="apple-touch-icon"]')
+            ?.getAttribute("href");
+        assert.ok(appleHref);
+        const images = [
+            ...manifest.icons,
+            { src: appleHref, sizes: "180x180" },
+        ];
+        assert.ok(
+            manifest.icons.some((icon: { purpose: string }) =>
+                icon.purpose.split(" ").includes("maskable"),
+            ),
+        );
+        for (const icon of images) {
+            const url = new URL(icon.src, manifestUrl);
+            assert.ok(url.pathname.startsWith("/stride/icons/"));
+            const png = await readFile(
+                new URL("../dist/" + icon.src, import.meta.url),
+            );
+            assert.equal(
+                png.subarray(0, 8).toString("hex"),
+                "89504e470d0a1a0a",
+            );
+            assert.equal(
+                `${png.readUInt32BE(16)}x${png.readUInt32BE(20)}`,
+                icon.sizes,
+            );
+        }
+    } finally {
+        await window.happyDOM.close();
+    }
+});
