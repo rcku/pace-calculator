@@ -277,9 +277,9 @@ export function workoutTiming(
     if (type === "Interval") {
         return {
             suitable: true,
-            text: `${time} per repeat at the pace above.`,
-            recovery: `${paceText(seconds * 0.75)}–${time} of easy jogging between repeats.`,
+            text: time,
+            recovery: `${paceText(seconds * 0.75)}–${time} of easy jogging between repeats`,
         };
     }
-    return { suitable: true, text: `${time} per repeat at the pace above.` };
+    return { suitable: true, text: time };
 }

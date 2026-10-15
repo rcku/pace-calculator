@@ -15,7 +15,7 @@ function timing(type: TrainingType, name: string, score: number) {
 test("600 m repetitions adapt to current fitness; strides have no prescribed split", () => {
     const ready = timing("Repetition", "600 m repeats · R", 56.5);
     assert.equal(ready?.suitable, true);
-    assert.match(ready.text, /1:57 per repeat/);
+    assert.equal(ready.text, "1:57");
     const slower = timing("Repetition", "600 m repeats · R", 50);
     assert.equal(slower?.suitable, false);
     assert.match(slower.text, /2:10.*2-minute R limit/);
@@ -25,7 +25,7 @@ test("600 m repetitions adapt to current fitness; strides have no prescribed spl
 test("I repeats use duration rather than a fixed distance classification", () => {
     const normal = timing("Interval", "800 m repeats · I", 50);
     assert.equal(normal?.suitable, true);
-    assert.match(normal.text, /3:04 per repeat/);
+    assert.equal(normal.text, "3:04");
     assert.equal(timing("Interval", "1 km repeats · I", 25)?.suitable, false);
     assert.equal(timing("Interval", "400 m repeats · I", 100)?.suitable, false);
 });

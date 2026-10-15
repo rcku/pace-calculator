@@ -215,7 +215,7 @@ test("marathon examples show distance options, strides, and fitness-specific rep
                 "600 m repeats · R",
         )!;
     assert.match(r600().textContent, /4–6 × 600 m/);
-    assert.match(r600().textContent, /1:57 per repeat/);
+    assert.match(r600().textContent, /Repeat time1:57/);
     change("vdot-input", "50");
     assert.match(r600().textContent, /2:10.*2-minute R limit/);
     assert.doesNotMatch(r600().textContent, /4–6 × 600 m/);
@@ -229,7 +229,7 @@ test("marathon examples show distance options, strides, and fitness-specific rep
     ]) {
         assert.ok(intervals.textContent.includes(name));
     }
-    assert.match(intervals.textContent, /3:50 per repeat/);
+    assert.match(intervals.textContent, /Repeat time3:50/);
     assert.match(intervals.textContent, /2:53–3:50 of easy jogging/);
     click(get("training-easy-run-toggle"));
     assert.match(get("training-easy-run-workouts").textContent, /24–32 km/);
