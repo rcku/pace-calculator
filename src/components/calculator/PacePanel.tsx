@@ -71,7 +71,7 @@ export function PaceResults({
             />
             <RaceTable
                 id="race-list"
-                races={races}
+                races={[...races].reverse()}
                 finishTime={result ? (km) => result!.secKm * km : undefined}
             />
         </div>
