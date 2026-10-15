@@ -30,3 +30,9 @@ References reviewed:
 - [Threshold training](https://news.vdoto2.com/2017/12/whats-threshold-pace/): 20-minute steady T work and cruise intervals with brief recovery.
 - [Interval guidance](https://news.vdoto2.com/2025/07/how-to-effectively-improve-your-vo2max/): 1–5-minute work bouts, preference for 3–5 minutes, active recovery, and volume limits.
 - [Repetition recovery](https://news.vdoto2.com/2022/07/getting-the-most-out-of-your-repetition-training/): short repeats, the 2-minute limit, and full recovery.
+
+## Workout display format
+
+Every example uses the same fields in order: **Work**, **Pace**, **Recovery**, and **Total work**. **Repeat time** appears for valid distance repeats, and **Notes** carries additional guidance. Continuous sessions explicitly show “None—continuous run” for recovery. Strides use effort guidance without an exact split. Work and recovery units use `km`, `m`, `min`, and `sec`; VDOT-based times use `m:ss`.
+
+These fields are required by the `WorkoutExample` type. Recovery times calculated from VDOT occupy the same Recovery field as static jog distances and timed rests. Total work describes the main session or fast portion; warm-up/cool-down and recovery running are additional unless the workout explicitly states an overall distance. Unsuitable I/R distances retain an explanatory note and render a shorter/timed alternative with the same four fields, so the original inappropriate session is not prescribed alongside it.

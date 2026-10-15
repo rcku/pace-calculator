@@ -63,7 +63,7 @@ test("portable HTML works without local scripts or stylesheets", async () => {
         );
         assert.ok(workouts);
         assert.equal(workouts.closest("tr")?.hasAttribute("hidden"), false);
-        assert.match(workouts.textContent, /Cruise intervals/);
+        assert.match(workouts.textContent, /2 km cruise intervals/);
         window.location.hash = "#pace-conversion";
         window.dispatchEvent(new window.Event("hashchange"));
         await window.happyDOM.waitUntilComplete();

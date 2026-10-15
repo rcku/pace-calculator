@@ -403,10 +403,6 @@
     margin-top: 10px;
 }
 
-.training-workouts li span {
-    display: block;
-}
-
 .training-workouts a {
     display: inline-flex;
     align-items: center;
@@ -422,8 +418,45 @@
     font-weight: 600;
 }
 
-.training-workouts .workout-timing {
-    margin-top: 4px;
+.workout-fields {
+    margin: 8px 0 0;
+}
+
+.workout-fields > div {
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.workout-fields dt {
     color: var(--muted);
+    font-weight: 500;
+}
+
+.workout-fields dt::after {
+    content: ":";
+}
+
+.workout-fields dd {
+    margin: 0;
+    min-width: 0;
     font-variant-numeric: tabular-nums;
+}
+
+.training-workouts .workout-alternative {
+    margin: 6px 0 0;
+}
+
+@media (max-width: 520px) {
+    .workout-fields > div {
+        display: block;
+    }
+    .workout-fields dt,
+    .workout-fields dd {
+        display: inline;
+    }
+    .workout-fields dt {
+        margin-right: 6px;
+    }
 }

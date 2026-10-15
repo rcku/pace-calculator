@@ -159,9 +159,9 @@ test("training workout sections expand independently and keep pace updates", () 
     const examples = [
         ["easy-run", "Recovery run"],
         ["marathon", "Marathon blocks"],
-        ["threshold", "Cruise intervals"],
+        ["threshold", "2 km cruise intervals"],
         ["interval", "Three-minute intervals"],
-        ["repetition", "Track 200s"],
+        ["repetition", "200 m repeats"],
     ];
     for (const [type, example] of examples) {
         const toggle = get(`training-${type}-toggle`);
@@ -200,13 +200,19 @@ test("marathon examples show distance options, strides, and fitness-specific rep
     );
     click(get("training-repetition-toggle"));
     const repetition = get("training-repetition-workouts");
-    for (const name of ["Track 300s", "Track 400s", "Track 600s", "Strides"]) {
+    for (const name of [
+        "300 m repeats",
+        "400 m repeats",
+        "600 m repeats",
+        "Strides",
+    ]) {
         assert.ok(repetition.textContent.includes(name));
     }
     const r600 = () =>
         Array.from(repetition.querySelectorAll("li")).find(
             (item) =>
-                item.querySelector("strong")?.textContent === "Track 600s · R",
+                item.querySelector("strong")?.textContent ===
+                "600 m repeats · R",
         )!;
     assert.match(r600().textContent, /4–6 × 600 m/);
     assert.match(r600().textContent, /1:57 per repeat/);
@@ -216,15 +222,15 @@ test("marathon examples show distance options, strides, and fitness-specific rep
     click(get("training-interval-toggle"));
     const intervals = get("training-interval-workouts");
     for (const name of [
-        "Track 400s",
-        "Track 600s",
-        "Track 800s",
-        "Kilometer intervals",
+        "400 m repeats",
+        "600 m repeats",
+        "800 m repeats",
+        "1 km repeats",
     ]) {
         assert.ok(intervals.textContent.includes(name));
     }
     assert.match(intervals.textContent, /3:50 per repeat/);
-    assert.match(intervals.textContent, /Recovery: 2:53–3:50 of easy jogging/);
+    assert.match(intervals.textContent, /2:53–3:50 of easy jogging/);
     click(get("training-easy-run-toggle"));
     assert.match(get("training-easy-run-workouts").textContent, /24–32 km/);
     assert.match(get("training-easy-run-workouts").textContent, /strides/);

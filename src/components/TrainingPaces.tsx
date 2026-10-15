@@ -1,7 +1,11 @@
 import { useState } from "preact/hooks";
 import { trainingPaces, paceText, type TrainingPace } from "../calculations.ts";
 import { MILE_KM } from "../distances.ts";
-import { trainingWorkouts, workoutTiming } from "../trainingWorkouts.ts";
+import {
+    trainingWorkouts,
+    workoutTiming,
+    type WorkoutExample,
+} from "../trainingWorkouts.ts";
 
 function PaceRange({
     values,
@@ -21,6 +25,46 @@ function PaceRange({
                 </span>
             ))}
         </>
+    );
+}
+
+function WorkoutDetails({
+    session,
+    row,
+}: {
+    session: WorkoutExample;
+    row: TrainingPace;
+}) {
+    const timing = workoutTiming(row.name, session, row.paces[0]);
+    const alternative =
+        timing?.suitable === false ? timing.alternative : undefined;
+    const plan = alternative ?? session;
+    const fields = [
+        ["Work", plan.work],
+        ["Pace", plan.pace],
+        [
+            "Recovery",
+            timing?.suitable
+                ? (timing.recovery ?? plan.recovery)
+                : plan.recovery,
+        ],
+        ["Total work", plan.total],
+    ];
+    if (timing?.suitable) fields.push(["Repeat time", timing.text]);
+    if (!alternative && session.notes) fields.push(["Notes", session.notes]);
+    return (
+        <li>
+            <strong>{session.name}</strong>
+            {alternative && <p class="workout-alternative">{timing!.text}</p>}
+            <dl class="workout-fields">
+                {fields.map(([label, value]) => (
+                    <div key={label}>
+                        <dt>{label}</dt>
+                        <dd>{value}</dd>
+                    </div>
+                ))}
+            </dl>
+        </li>
     );
 }
 
@@ -66,28 +110,13 @@ function TrainingRow({ row }: { row: TrainingPace }) {
                         <h3>Marathon training examples</h3>
                         <p>{guide.cue}</p>
                         <ul>
-                            {guide.sessions.map((session) => {
-                                const timing = workoutTiming(
-                                    row.name,
-                                    session,
-                                    row.paces[0],
-                                );
-                                return (
-                                    <li key={session.name}>
-                                        <strong>{session.name}</strong>
-                                        <span>
-                                            {timing?.suitable === false
-                                                ? timing.text
-                                                : session.detail}
-                                        </span>
-                                        {timing?.suitable && (
-                                            <span class="workout-timing">
-                                                {timing.text}
-                                            </span>
-                                        )}
-                                    </li>
-                                );
-                            })}
+                            {guide.sessions.map((session) => (
+                                <WorkoutDetails
+                                    key={session.name}
+                                    session={session}
+                                    row={row}
+                                />
+                            ))}
                         </ul>
                         <p>{guide.usage}</p>
                         <a

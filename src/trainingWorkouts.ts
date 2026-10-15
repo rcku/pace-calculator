@@ -2,7 +2,11 @@ import { paceText, type TrainingType } from "./calculations.ts";
 
 export type WorkoutExample = {
     name: string;
-    detail: string;
+    work: string;
+    pace: string;
+    recovery: string;
+    total: string;
+    notes?: string;
     distanceKm?: number;
 };
 type WorkoutGuide = {
@@ -19,23 +23,44 @@ export const trainingWorkouts: Record<TrainingType, WorkoutGuide> = {
         sessions: [
             {
                 name: "Recovery run",
-                detail: "6–10 km of relaxed running, including easy doubles when these are already part of your routine.",
+                work: "6–10 km continuous",
+                pace: "Easy effort; slower end of the range",
+                recovery: "None—continuous run",
+                total: "6–10 km easy",
+                notes: "May be an easy double if doubles are already part of your routine.",
             },
             {
                 name: "Aerobic run",
-                detail: "10–16 km at Easy effort between demanding sessions.",
+                work: "10–16 km continuous",
+                pace: "Easy, conversational effort",
+                recovery: "None—continuous run",
+                total: "10–16 km easy",
+                notes: "Use between demanding sessions.",
             },
             {
                 name: "Medium-long run",
-                detail: "16–22 km at Easy effort to build endurance midweek.",
+                work: "16–22 km continuous",
+                pace: "Easy effort",
+                recovery: "None—continuous run",
+                total: "16–22 km easy",
+                notes: "Midweek endurance run.",
             },
             {
                 name: "Easy long run",
-                detail: "24–32 km at Easy effort, subject to the weekly-distance and time limits below.",
+                work: "24–32 km continuous",
+                pace: "Easy effort",
+                recovery: "None—continuous run",
+                total: "24–32 km easy, subject to the limits below",
+                notes: "Use the weekly-distance and 150-minute limits below; stop earlier if either is reached.",
             },
             {
                 name: "Easy run + strides",
-                detail: "After an easy run, add 4–6 × 15–20-second relaxed strides. Recover for at least 60 seconds, and longer until fully ready. These are brief accelerations, not Easy-pace efforts or all-out sprints.",
+                work: "4–6 × 15–20 sec after an easy run",
+                pace: "Relaxed, quick accelerations; no target split",
+                recovery:
+                    "At least 60 sec walking or easy jogging between strides; longer until fully recovered",
+                total: "60–120 sec of strides; easy-run distance is additional",
+                notes: "Accelerate smoothly and ease down. Avoid all-out sprinting.",
             },
         ],
         source: "https://vdoto2.com/learn-more/training-definitions",
@@ -46,40 +71,67 @@ export const trainingWorkouts: Record<TrainingType, WorkoutGuide> = {
         sessions: [
             {
                 name: "Steady marathon effort",
-                detail: "10–16 km continuously at Marathon pace, plus 2–3 km easy before and after. Build toward the longer option over several weeks.",
+                work: "10–16 km continuous",
+                pace: "Marathon pace",
+                recovery: "None—continuous run",
+                total: "10–16 km at Marathon pace",
+                notes: "Add 2–3 km easy before and after; build toward the longer option over several weeks.",
             },
             {
                 name: "Marathon blocks",
-                detail: "2 × 5–6 km at Marathon pace, with 1 km easy between blocks, plus an easy warm-up and cool-down. Total Marathon work: 10–12 km.",
+                work: "2 × 5–6 km",
+                pace: "Marathon pace",
+                recovery: "1 km easy jogging between blocks",
+                total: "10–12 km at Marathon pace",
+                notes: "Add an easy warm-up and cool-down.",
             },
             {
                 name: "Marathon long run",
-                detail: "24–32 km total, including 8–12 km at Marathon pace toward the end, followed by 1–2 km easy. Use about 24 km near 80 km/week; reserve 28–32 km for established 100–120 km weeks. Keep the whole run within 150 minutes and about 30% of weekly distance.",
+                work: "24–32 km total, with 8–12 km at Marathon pace toward the end",
+                pace: "Easy effort, then Marathon pace, then Easy effort",
+                recovery: "None—continuous run",
+                total: "24–32 km total, including 8–12 km at Marathon pace",
+                notes: "Finish with 1–2 km easy, included in the total. Use about 24 km near 80 km/week and 28–32 km near 100–120 km/week. Keep the whole run within 150 minutes and about 30% of weekly distance.",
             },
         ],
         source: "https://vdoto2.com/learn-more/training-definitions",
     },
     Threshold: {
-        cue: "Use Threshold pace for a controlled, comfortably hard effort. Cruise intervals use brief jog recoveries; longer tempo runs should not simply extend the same T pace indefinitely.",
+        cue: "Use Threshold pace for a controlled, comfortably hard effort. 2 km cruise intervals use brief jog recoveries; longer tempo runs should not simply extend the same T pace indefinitely.",
         usage: "A useful midweek endurance session for marathon training. Keep total T running within about 10% of weekly distance (8–12 km); choose the lower repetition count near 80 km/week. The work totals below exclude easy recoveries.",
         sessions: [
             {
                 name: "Tempo run",
-                detail: "20 minutes continuously at Threshold pace, surrounded by easy running.",
+                work: "20 min continuous",
+                pace: "Threshold pace",
+                recovery: "None—continuous run",
+                total: "20 min at Threshold pace",
+                notes: "Surround the work with easy running.",
             },
             {
-                name: "Cruise intervals",
-                detail: "3–4 × 2 km at Threshold pace, with 90–120 seconds of easy jogging between efforts. Total T work: 6–8 km.",
+                name: "2 km cruise intervals",
+                work: "3–4 × 2 km",
+                pace: "Threshold pace",
+                recovery: "90–120 sec easy jogging between repeats",
+                total: "6–8 km at Threshold pace",
                 distanceKm: 2,
             },
             {
-                name: "Short cruise intervals · 1 km",
-                detail: "6–8 × 1 km at Threshold pace, with 60 seconds of easy jogging between efforts. Total T work: 6–8 km. Keep the pace controlled despite the shorter repeats.",
+                name: "1 km cruise intervals",
+                work: "6–8 × 1 km",
+                pace: "Threshold pace",
+                recovery: "60 sec easy jogging between repeats",
+                total: "6–8 km at Threshold pace",
+                notes: "Stay controlled despite the shorter repeats.",
                 distanceKm: 1,
             },
             {
                 name: "Timed cruise intervals",
-                detail: "3 × 8–10 minutes at Threshold pace, with 2 minutes of easy jogging between efforts. Total T work: 24–30 minutes; reduce repetitions if this exceeds the weekly-distance limit.",
+                work: "3 × 8–10 min",
+                pace: "Threshold pace",
+                recovery: "2 min easy jogging between repeats",
+                total: "24–30 min at Threshold pace",
+                notes: "Reduce repetitions if this exceeds the weekly-distance limit.",
             },
         ],
         source: "https://news.vdoto2.com/2017/12/whats-threshold-pace/",
@@ -90,26 +142,45 @@ export const trainingWorkouts: Record<TrainingType, WorkoutGuide> = {
         sessions: [
             {
                 name: "Three-minute intervals",
-                detail: "5–6 × 3 minutes at Interval pace, with 2 minutes of easy jogging between efforts. Total I work: 15–18 minutes.",
+                work: "5–6 × 3 min",
+                pace: "Interval pace",
+                recovery: "2 min easy jogging between repeats",
+                total: "15–18 min at Interval pace",
             },
             {
-                name: "Track 400s · I",
-                detail: "12–16 × 400 m at Interval pace. Total I work: 4.8–6.4 km; keep the jog recoveries controlled.",
+                name: "400 m repeats · I",
+                work: "12–16 × 400 m",
+                pace: "Interval pace",
+                recovery:
+                    "75–100% of the repeat time, easy jogging between repeats",
+                total: "4.8–6.4 km at Interval pace",
                 distanceKm: 0.4,
             },
             {
-                name: "Track 600s · I",
-                detail: "8–10 × 600 m at Interval pace. Total I work: 4.8–6 km.",
+                name: "600 m repeats · I",
+                work: "8–10 × 600 m",
+                pace: "Interval pace",
+                recovery:
+                    "75–100% of the repeat time, easy jogging between repeats",
+                total: "4.8–6 km at Interval pace",
                 distanceKm: 0.6,
             },
             {
-                name: "Track 800s · I",
-                detail: "6–8 × 800 m at Interval pace. Total I work: 4.8–6.4 km.",
+                name: "800 m repeats · I",
+                work: "6–8 × 800 m",
+                pace: "Interval pace",
+                recovery:
+                    "75–100% of the repeat time, easy jogging between repeats",
+                total: "4.8–6.4 km at Interval pace",
                 distanceKm: 0.8,
             },
             {
-                name: "Kilometer intervals · I",
-                detail: "5–6 × 1 km at Interval pace. Total I work: 5–6 km.",
+                name: "1 km repeats · I",
+                work: "5–6 × 1 km",
+                pace: "Interval pace",
+                recovery:
+                    "75–100% of the repeat time, easy jogging between repeats",
+                total: "5–6 km at Interval pace",
                 distanceKm: 1,
             },
         ],
@@ -120,28 +191,50 @@ export const trainingWorkouts: Record<TrainingType, WorkoutGuide> = {
         usage: "Keep these as a light economy session or occasional replacement for harder work. Total R distance should stay within about 5% of weekly mileage (4–6 km). Jog at least the repeat distance between track reps, taking longer whenever needed to regain relaxed form.",
         sessions: [
             {
-                name: "Track 200s · R",
-                detail: "10–16 × 200 m at Repetition pace, with at least 200 m of easy jogging between efforts. Total R work: 2–3.2 km.",
+                name: "200 m repeats · R",
+                work: "10–16 × 200 m",
+                pace: "Repetition pace",
+                recovery:
+                    "At least 200 m easy jogging between repeats; longer until fully recovered",
+                total: "2–3.2 km at Repetition pace",
                 distanceKm: 0.2,
             },
             {
-                name: "Track 300s · R",
-                detail: "8–10 × 300 m at Repetition pace, with at least 300 m of easy jogging between efforts. Total R work: 2.4–3 km.",
+                name: "300 m repeats · R",
+                work: "8–10 × 300 m",
+                pace: "Repetition pace",
+                recovery:
+                    "At least 300 m easy jogging between repeats; longer until fully recovered",
+                total: "2.4–3 km at Repetition pace",
                 distanceKm: 0.3,
             },
             {
-                name: "Track 400s · R",
-                detail: "6–10 × 400 m at Repetition pace, with at least 400 m of easy jogging between efforts. Total R work: 2.4–4 km.",
+                name: "400 m repeats · R",
+                work: "6–10 × 400 m",
+                pace: "Repetition pace",
+                recovery:
+                    "At least 400 m easy jogging between repeats; longer until fully recovered",
+                total: "2.4–4 km at Repetition pace",
                 distanceKm: 0.4,
             },
             {
-                name: "Track 600s · R",
-                detail: "4–6 × 600 m at Repetition pace, with at least 600 m of easy jogging between efforts. Use only when each repeat takes no more than 2 minutes. Total R work: 2.4–3.6 km.",
+                name: "600 m repeats · R",
+                work: "4–6 × 600 m",
+                pace: "Repetition pace",
+                recovery:
+                    "At least 600 m easy jogging between repeats; longer until fully recovered",
+                total: "2.4–3.6 km at Repetition pace",
+                notes: "Use only when each repeat takes no more than 2 minutes.",
                 distanceKm: 0.6,
             },
             {
                 name: "Strides",
-                detail: "6–8 × 15–20 seconds after easy running or in a warm-up. Accelerate smoothly, stay relaxed, then ease down. Walk or jog for at least 60 seconds and until fully recovered. Avoid all-out sprinting or chasing a precise R split.",
+                work: "6–8 × 15–20 sec after easy running or in a warm-up",
+                pace: "Relaxed, quick accelerations; no target split",
+                recovery:
+                    "At least 60 sec walking or easy jogging between strides; longer until fully recovered",
+                total: "90–160 sec of strides",
+                notes: "Accelerate smoothly, stay relaxed, then ease down. Avoid all-out sprinting or chasing a precise R split.",
             },
         ],
         source: "https://vdoto2.com/learn-more/training-definitions",
@@ -160,19 +253,32 @@ export function workoutTiming(
     if (type === "Repetition" && seconds > 120) {
         return {
             suitable: false,
-            text: `At this VDOT, one repeat takes ${time}, beyond the 2-minute R limit. Choose a shorter distance or 20–30-second relaxed repeats with full recovery instead.`,
+            text: `At this VDOT, one repeat takes ${time}, beyond the 2-minute R limit. Use the shorter alternative below.`,
+            alternative: {
+                work: "6 × 20–30 sec",
+                pace: "Relaxed Repetition effort",
+                recovery: "Easy jogging until fully recovered between repeats",
+                total: "2–3 min at Repetition effort",
+            },
         };
     }
     if (type === "Interval" && (seconds < 60 || seconds > 300)) {
         return {
             suitable: false,
-            text: `At this VDOT, one repeat takes ${time}, outside the 1–5-minute I range. Use timed 3-minute intervals with 2 minutes of easy jogging between efforts instead.`,
+            text: `At this VDOT, one repeat takes ${time}, outside the 1–5-minute I range. Use the timed alternative below.`,
+            alternative: {
+                work: "5–6 × 3 min",
+                pace: "Interval pace",
+                recovery: "2 min easy jogging between repeats",
+                total: "15–18 min at Interval pace",
+            },
         };
     }
     if (type === "Interval") {
         return {
             suitable: true,
-            text: `${time} per repeat at the pace above. Recovery: ${paceText(seconds * 0.75)}–${time} of easy jogging between repeats.`,
+            text: `${time} per repeat at the pace above.`,
+            recovery: `${paceText(seconds * 0.75)}–${time} of easy jogging between repeats.`,
         };
     }
     return { suitable: true, text: `${time} per repeat at the pace above.` };
